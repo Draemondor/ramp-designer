@@ -1,0 +1,16 @@
+Required Inputs:
+beginning and end locations (x,y,z)
+boundaries (x and y planes)
+obstacles (x,y locations and size(?))
+
+Optional Inputs:
+Modular or not
+sunk posts or not
+ramp width
+porch exists (true false)
+ramp ends on dirt or concrete
+
+Necessary functionality:
+Take inputs and generate a possible ramp path using a pathfinding algorithm
+Have path be user adjustable
+Have an interactive grid for selecting the start/end, boundary planes, and obstacle locations, able to adjust path from here by click/drag
