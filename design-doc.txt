@@ -14,3 +14,23 @@ Necessary functionality:
 Take inputs and generate a possible ramp path using a pathfinding algorithm
 Have path be user adjustable
 Have an interactive grid for selecting the start/end, boundary planes, and obstacle locations, able to adjust path from here by click/drag
+
+
+Functional Requirements
+    • Input dimensional specifications for ramp design
+    • From the given specs, generate a design (algorithm)
+    • Design should be adjustable
+    • Interface with online and local database
+    • Able to retrieve material pricing for builds
+
+Security and User Capabilities
+    • User permissions
+
+Optional Features
+    • Able to select modular or custom materials
+    • Mobile
+    • 3-D parametric view
+    • On view calculator
+    • Design docs
+    • Gallery of previous builds and/or models
+    • Document section for important documents
