@@ -1,0 +1,75 @@
+.root_borderPane {
+    -fx-background-color: #494843;
+}
+
+._button {
+    -fx-background-color: #0B90B5;
+    -fx-text-fill: #ffffff;
+}
+
+._button:hover {
+    -fx-background-color: #3DAEE9;
+}
+
+.other_btn {
+    -fx-background-color: #636363;
+    -fx-text-fill: #ffffff;
+}
+
+.other_btn:hover {
+    -fx-background-color: #3DAEE9;
+}
+
+.top_hBox {
+    -fx-background-color: #494843;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #636363;
+}
+
+.header_hBox {
+    -fx-background-color: #494843;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #636363;
+}
+
+.text-field {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.search_bar_btn {
+    -fx-background-color: #636363;
+    -fx-background-radius: 0 2 2 0;
+}
+
+.search_bar_btn:hover {
+    -fx-background-color: #3DAEE9;
+}
+
+.item_progress_label {
+    -fx-border-color: #71D672;
+    -fx-border-radius: 15 15 15 15;
+}
+
+.list-view {
+    -fx-selection-bar:#0B90B5 ;
+    -fx-background-color: #636363, -fx-control-inner-background ;
+    -fx-background-insets: 0, 1;
+    /*-fx-padding: 0;*/
+}
+
+
+.list-view .list-cell:odd {
+    -fx-background-color: #41403D;
+    -fx-font-size: 15;
+}
+
+.list-view .list-cell:even {
+    -fx-background-color: #3E3D3A;
+    -fx-font-size: 15;
+}
+
+.list-view .list-cell:selected:odd,
+.list-view .list-cell:selected:even {
+    -fx-background-color: -fx-background;
+}

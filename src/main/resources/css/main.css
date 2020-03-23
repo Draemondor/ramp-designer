@@ -1,0 +1,42 @@
+.root {
+    -fx-background-color: #52514C;
+}
+
+.top_pane {
+    -fx-background-color: #52514C;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #636363;
+}
+
+.side_pane {
+    -fx-background-color: #52514C;
+    -fx-border-width: 0 1 0 0;
+    -fx-border-color: #636363;
+}
+
+.settings_icon {
+: #ffffff;
+}
+
+.side_pane_selected {
+    /*-fx-background-color: #494843;*/
+    -fx-background-color: radial-gradient(center 50% 50%, radius 50%, #0B90B5 60%, #52514C 100%);
+    -fx-border-width: 0 1 0 0;
+    -fx-border-color: #636363;
+}
+
+.side_pane_deselected {
+    -fx-background-color: #52514C;
+    -fx-border-width: 0 1 0 0;
+    -fx-border-color: #636363
+}
+
+
+/*
+change the color of an image or icon
+
+.triangle {
+   -fx-effect: innershadow( gaussian , #1E2D44 , 7 , 1 , 1 , 1 );
+}
+
+*/

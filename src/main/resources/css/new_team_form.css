@@ -1,0 +1,20 @@
+.root {
+    -fx-background-color: #494843;
+}
+
+.create_btn {
+    -fx-background-color: #0B90B5;
+    -fx-text-fill: #ffffff;
+}
+
+.create_btn:hover {
+    -fx-background-color: #3DAEE9;
+}
+
+.other_button {
+    -fx-background-color: #636363;
+}
+
+.other_button:hover {
+    -fx-background-color: #838383;;
+}

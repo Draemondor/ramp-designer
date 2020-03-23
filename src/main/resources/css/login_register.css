@@ -1,0 +1,33 @@
+.root {
+    -fx-background-color: #494843;
+}
+
+.left_pane {
+    -fx-border-width: 0 1 0 0;
+    -fx-border-color: #636363;
+}
+
+.login_btn {
+    -fx-background-color: #0B90B5;
+}
+
+.login_btn:hover {
+    -fx-background-color: #3DAEE9;
+}
+
+.forgot_pswd:hover {
+    -fx-text-fill: #0B90B5;
+}
+
+.register {
+    -fx-background-color: #636363;
+    -fx-text-fill: #ffffff;
+}
+
+.register:hover {
+    -fx-background-color: #0B90B5;
+}
+
+.signin:hover {
+    -fx-text-fill: #0B90B5;
+}

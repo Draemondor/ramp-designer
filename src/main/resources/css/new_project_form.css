@@ -1,0 +1,51 @@
+.root {
+    -fx-background-color: #494843;
+}
+
+.top_pane {
+    /*-fx-background-color: linear-gradient(to top, #494843, #636363);*/
+    /*-fx-border-width: 0 0 1 0;*/
+    -fx-border-color: #494843;
+    -fx-background-color: #494843;
+}
+
+.scroll-pane {
+    -fx-background-color:transparent;
+}
+
+.new_project_hBox {
+    -fx-background-color: #3E3D3A;
+}
+
+.new_project_color_scheme_selected {
+    -fx-border-width: 0 0 2 0;
+    -fx-border-color: #0B90B5;
+}
+
+.new_project_color_scheme_deselected {
+    -fx-background-color: #494843;
+}
+
+._button {
+    -fx-background-color: #0B90B5;
+    -fx-text-fill: #ffffff;
+}
+
+._button:hover {
+    -fx-background-color: #3DAEE9;
+}
+
+.other_button {
+    -fx-background-color: #636363;;
+}
+
+.other_button:hover {
+    -fx-background-color: #838383;;
+}
+
+.text-field {
+    -fx-font-size: 16;
+    /*-fx-control-inner-background: #3E3D3A;*/
+    /*-fx-focus-color: -fx-control-inner-background ;*/
+    /*-fx-faint-focus-color: -fx-control-inner-background ;*/
+}

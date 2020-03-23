@@ -1,0 +1,50 @@
+
+.build_input_pane {
+    -fx-background-color: #494843;
+}
+
+.scroll-pane {
+    -fx-background-color: #636363;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: #636363;
+}
+
+.generate_btn {
+    -fx-background-color: #3FBDAF;
+    -fx-text-fill: #ffffff;
+}
+
+.combo_box {
+    -fx-text-fill: #ffffff;
+}
+
+.value_input_Hbox {
+    -fx-background-color: #494843;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #636363;
+}
+
+.build_value_input_pane {
+    -fx-background-color: #19455D;
+}
+
+.build_input_labels {
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #636363;
+}
+
+.build_selected {
+    -fx-background-color: #19455D;
+}
+
+
+/*
+change the color of an image or icon
+
+.triangle {
+   -fx-effect: innershadow( gaussian , #1E2D44 , 7 , 1 , 1 , 1 );
+}
+
+*/
