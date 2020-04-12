@@ -13,19 +13,6 @@
     -fx-background-color:transparent;
 }
 
-.new_project_hBox {
-    -fx-background-color: #3E3D3A;
-}
-
-.new_project_color_scheme_selected {
-    -fx-border-width: 0 0 2 0;
-    -fx-border-color: #0B90B5;
-}
-
-.new_project_color_scheme_deselected {
-    -fx-background-color: #494843;
-}
-
 ._button {
     -fx-background-color: #0B90B5;
     -fx-text-fill: #ffffff;
@@ -48,4 +35,16 @@
     /*-fx-control-inner-background: #3E3D3A;*/
     /*-fx-focus-color: -fx-control-inner-background ;*/
     /*-fx-faint-focus-color: -fx-control-inner-background ;*/
+}
+
+.combo-box-popup .list-view .list-cell {
+    -fx-font-size: 16;
+    -fx-text-fill: black;
+    -fx-padding: 5 5 5 5;
+    -fx-background-color: white;
+}
+
+.combo-box-popup .list-view .list-cell:filled:hover {
+    -fx-background-color: #3DAEE9;
+    -fx-text-fill: -fx-text-inner-color;
 }

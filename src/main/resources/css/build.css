@@ -1,43 +1,60 @@
+.root {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
 
-.build_input_pane {
+.border-pane {
     -fx-background-color: #494843;
 }
 
-.scroll-pane {
+.text-field {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.search_bar_btn {
     -fx-background-color: #636363;
+    -fx-background-radius: 0 2 2 0;
 }
 
-.scroll-pane > .viewport {
-    -fx-background-color: #636363;
+.search_bar_btn:hover {
+    -fx-background-color: #3DAEE9;
 }
 
-.generate_btn {
-    -fx-background-color: #3FBDAF;
-    -fx-text-fill: #ffffff;
+.expand_right {
+    -fx-effect: innershadow(gaussian, #FFA500, 7, 1, 1, 1);
 }
 
-.combo_box {
-    -fx-text-fill: #ffffff;
+.list-view {
+    -fx-background-color: transparent;
 }
 
-.value_input_Hbox {
-    -fx-background-color: #494843;
-    -fx-border-width: 0 0 1 0;
-    -fx-border-color: #636363;
+.list-cell {
+    -fx-background-color: transparent;
 }
 
-.build_value_input_pane {
-    -fx-background-color: #19455D;
+.list-view {
+    -fx-selection-bar:#0B90B5;
+    -fx-background-color: #636363, -fx-control-inner-background;
+    -fx-background-insets: 0, 1;
+    /*-fx-padding: 0;*/
 }
 
-.build_input_labels {
-    -fx-border-width: 0 0 1 0;
-    -fx-border-color: #636363;
+.list-view .list-cell:odd {
+    -fx-background-color: #41403D;
+    -fx-font-size: 15;
 }
 
-.build_selected {
-    -fx-background-color: #19455D;
+.list-view .list-cell:even {
+    -fx-background-color: #3E3D3A;
+    -fx-font-size: 15;
 }
+
+.list-view .list-cell:selected:odd,
+.list-view .list-cell:selected:even {
+    -fx-background-color: -fx-background;
+}
+
 
 
 /*

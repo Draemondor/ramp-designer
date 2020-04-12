@@ -46,17 +46,13 @@
     -fx-background-color: #3DAEE9;
 }
 
-.item_progress_label {
-    -fx-border-color: #71D672;
-    -fx-border-radius: 15 15 15 15;
+.list-view {
+    -fx-selection-bar:#0B90B5;
+    -fx-background-color: transparent;
+    -fx-background-insets: 0, 1;
+    -fx-padding: 0;
 }
 
-.list-view {
-    -fx-selection-bar:#0B90B5 ;
-    -fx-background-color: #636363, -fx-control-inner-background ;
-    -fx-background-insets: 0, 1;
-    /*-fx-padding: 0;*/
-}
 
 
 .list-view .list-cell:odd {

@@ -1,8 +1,8 @@
-import Entities.Customer;
-import Entities.Project;
 import Entities.User;
+import List_Items.project_list_item;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,53 +25,34 @@ public class HomeController extends Controller implements OnFXMLChangedListener 
     VBox items;
 
     @FXML
-    private ListView<Project> listView;
+    private ListView<project_list_item> listView;
 
     @FXML
     TextField searchField;
 
     @FXML
-    Button newProjectBtn;
+    Button newProjectBtn, teamsBtn;
 
-    private ObservableList<Project> projectObservableList;
-
-    public HomeController() {
-        projectObservableList = FXCollections.observableArrayList();
-
-        Customer customer = new Customer(
-                "Jon",
-                "Doe",
-                "89 Gourd creek rd",
-                "TX",
-                "Huntsville",
-                "77340",
-                "9366623765",
-                null,
-                "jonDoe@gmail.com"
-        );
-
-        Project project  = new Project(
-                "Project Cypher",
-                customer,
-                new User(),
-                "02/21/2020",
-                "Some notes about the project. This is just an example to test the length of this note.",
-                Project.projectStatus.IN_PROGRESS);
-
-        for (int i = 0; i < 20; i++) {
-            projectObservableList.addAll(project);
-        }
-    }
+    private DatabaseManager databaseManager;
+    private ObservableList<project_list_item> projectObservableList;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        rootPane.requestFocus();
-        listView.setItems(projectObservableList);
-        listView.setCellFactory(projectListView -> new ProjectListItem());
+        getProjects();
+    }
+
+    public void getProjects() {
+        databaseManager = DatabaseManager.getInstance();
+        projectObservableList = FXCollections.observableArrayList();
+
+        new Thread(() -> {
+            projectObservableList.addAll(databaseManager.getProjects());
+            listView.setItems(projectObservableList);
+            listView.setCellFactory(projectListView -> new ProjectListItem());
+        }).start();
     }
 
     public void openNewProjectForm() {
-//        ControllerHandler.getInstance().setParentController(this);
         rootPane.setTop(null);
         Parent root = null;
         try {
@@ -83,13 +64,13 @@ public class HomeController extends Controller implements OnFXMLChangedListener 
     }
 
     @Override
-    public void setParentController(Controller parentController) {
+    public void onControllerLoadFXML(String FXML) {
+        System.out.println("onControllerLoadFXML from HomeController");
 
     }
 
-    @Override
-    public void onControllerLoadFXML(String FXML) {
-        System.out.println("onControllerAction from HomeController");
+    public void onAction(ActionEvent actionEvent) {
+
     }
 }
 

@@ -5,30 +5,15 @@ public class Project {
     private String project_name, start_date, notes;
     private User project_manager;
     private Customer customer;
-    private projectStatus status;
-    public enum projectStatus {
-        IN_PLANNING("IN PLANNING"),
-        IN_PROGRESS("IN PROGRESS"),
-        WAITING_APPROVAL("WAITING APPROVAL"),
-        APPROVED("APPROVED"),
-        ON_HOLD("ON HOLD"),
-        REQUIRES_FOLLOW_UP("REQUIRES FOLLOW-UP"),
-        CANCELED("CANCELED"),
-        COMPLETED("COMPLETED");
-        private String status;
-
-        projectStatus(String status) {
-            this.status = status;
-        }
-
-        public String getStatus() {
-            return this.status;
-        }
-    }
+    private int status;
 
     public Project() {  }
 
-    public Project(String project_name, Customer customer, User project_manager, String start_date, String notes, projectStatus status) {
+    public Project(String name) { this.project_name = name; }
+
+
+
+    public Project(String project_name, Customer customer, User project_manager, String start_date, String notes, int status) {
         this.project_name = project_name;
         this.customer = customer;
         this.project_manager = project_manager;
@@ -85,11 +70,11 @@ public class Project {
         this.project_manager = project_manager;
     }
 
-    public projectStatus getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(projectStatus status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 }

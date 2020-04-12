@@ -98,6 +98,11 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
+                  <Label fx:id="register_warning_label" alignment="CENTER" layoutX="-21.0" layoutY="545.0" textAlignment="CENTER" textFill="#f24d4d" wrapText="true" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="75.0">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
             <AnchorPane fx:id="login_pane" styleClass="root" stylesheets="@../css/login_register.css">
@@ -136,6 +141,11 @@
                         <Font size="16.0" />
                      </font>
                   </Button>
+                  <Label fx:id="login_warning_label" alignment="CENTER" layoutX="35.0" layoutY="431.0" textAlignment="CENTER" textFill="#f24d4d" wrapText="true" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="75.0">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
          </children>

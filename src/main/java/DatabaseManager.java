@@ -1,17 +1,23 @@
 import Entities.User;
+import List_Items.project_list_item;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseManager {
+    private static DatabaseManager manager = null;
 
     public DatabaseManager() {}
 
     public static DatabaseManager getInstance() {
-        return new DatabaseManager();
+        if (manager == null)
+            manager = new DatabaseManager();
+        return manager;
     }
 
-    public static Connection getConnection() {
+    public Connection getConnection() {
         try {
             Class.forName("org.sqlite.JDBC");
             return DriverManager.getConnection("jdbc:sqlite:database.db");
@@ -23,7 +29,7 @@ public class DatabaseManager {
 
     /********** CHECK EMAIL AVAILABILITY **************/
 
-    public static boolean isEmailTaken(String email) {
+    public boolean isEmailTaken(String email) {
         Connection connection = getConnection();
         if (connection != null) {
             String emailCheck = "SELECT email FROM users WHERE email = ?";
@@ -36,32 +42,42 @@ public class DatabaseManager {
                 else return false;
             } catch (SQLException e) {
                 e.printStackTrace();
-                return false;
+                return true;
             }
         }
-        return false;
+        return true;
     }
 
     /********** ADD NEW USER **************/
 
-    public static User addUser(User user) {
+    public User addUser(String fName, String lName, String mEmail, String hash, String phone) {
         Connection connection = getConnection();
         ResultSet resultSet;
         if (connection != null) {
+
             try {
+                long time = System.currentTimeMillis();
+                java.sql.Date date = new java.sql.Date(time);
+
                 Statement statement = connection.createStatement();
-                statement.executeUpdate("INSERT INTO users (f_name, l_name, email, pswd, phone)" + " values ('"
-                    + user.getFirstName()
-                    + "','" + user.getLastName()
-                    + "','" + user.getEmail()
-                    + "','" + user.getPassword()
-                    + "','" + user.getPhone() + "')");
+                statement.executeUpdate("INSERT INTO users (f_name, l_name, email, pswd, phone, accnt_created)"
+                        + " values ('"
+                        + fName
+                        + "','" + lName
+                        + "','" + mEmail
+                        + "','" + hash
+                        + "','" + phone
+                        + "','" + date
+                        + "')");
 
                 resultSet = statement.getGeneratedKeys();
                 if (resultSet != null && resultSet.next()) {
+                    User user = new User(fName, lName, mEmail, hash, phone, time);
                     user.setUID(resultSet.getInt(1));
                     connection.close();
+
                     return user;
+
                 } else return null;
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -73,7 +89,7 @@ public class DatabaseManager {
 
     /********** VERIFY THE USERS LOGIN CREDENTIALS **************/
 
-    public static User loginCredentialsVerified(String email, String pswd) {
+    public User loginCredentialsVerified(String email, String pswd) {
         Connection connection = getConnection();
         if (connection != null) {
             String query = "SELECT * FROM users WHERE email = ?";
@@ -112,17 +128,18 @@ public class DatabaseManager {
      *          If not, log the user in as normal.
      ***************/
 
-    public static void createDefaultTables() {
-
+    public void createDefaultTables() {
         /********** USERS TABLE **************/
 
         String CREATE_USERS_TABLE = "CREATE TABLE IF NOT EXISTS \"users\" (\n" +
                 "\t\"user_id\"\tINTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n" +
-                "\t\"f_name\"\tVARCHAR(60) NOT NULL,\n" +
-                "\t\"l_name\"\tVARCHAR(60) NOT NULL,\n" +
+                "\t\"f_name\"\tVARCHAR(100) NOT NULL,\n" +
+                "\t\"l_name\"\tVARCHAR(100) NOT NULL,\n" +
                 "\t\"email\"\tVARCHAR(256) NOT NULL UNIQUE,\n" +
-                "\t\"pswd\"\tVARCHAR(60) NOT NULL,\n" +
-                "\t\"phone\"\tVARCHAR(10) NOT NULL\n" +
+                "\t\"pswd\"\tVARCHAR(256) NOT NULL,\n" +
+                "\t\"phone\"\tVARCHAR(12) NOT NULL,\n" +
+                "\t\"role\"\tTINYINT DEFAULT 0,\n" +
+                "\t\"accnt_created\"\tDATE NOT NULL\n" +
                 ")";
         createTable(CREATE_USERS_TABLE);
 
@@ -132,7 +149,9 @@ public class DatabaseManager {
                 "\t\"team_id\"\tINTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n" +
                 "\t\"team_name\"\tVARCHAR(256) NOT NULL,\n" +
                 "\t\"team_color\"\tTINYINT DEFAULT 0,\n" +
-                "\t\"team_leader\"\tINTEGER NOT NULL\n" +
+                "\t\"team_creator\"\tINTEGER NOT NULL,\n" +
+                "\t\"date_created\"\tDATE NOT NULL,\n" +
+                "\t\"privacy_level\"\tTINYINT DEFAULT 0\n" +
                 ")";
         createTable(CREATE_TEAMS_TABLE);
 
@@ -140,11 +159,11 @@ public class DatabaseManager {
 
         String CREATE_CUSTOMERS_TABLE = "CREATE TABLE IF NOT EXISTS \"customers\" (\n" +
                 "\t\"customer_id\"\tINTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n" +
-                "\t\"f_name\"\tVARCHAR(60) NOT NULL,\n" +
-                "\t\"l_name\"\tVARCHAR(60) NOT NULL,\n" +
+                "\t\"f_name\"\tVARCHAR(100) NOT NULL,\n" +
+                "\t\"l_name\"\tVARCHAR(100) NOT NULL,\n" +
                 "\t\"email\"\tVARCHAR(256) NOT NULL,\n" +
-                "\t\"primary_phone\"\tVARCHAR(10) NOT NULL,\n" +
-                "\t\"secondary_phone\"\tVARCHAR(10) DEFAULT null,\n" +
+                "\t\"primary_phone\"\tVARCHAR(12) NOT NULL,\n" +
+                "\t\"secondary_phone\"\tVARCHAR(12),\n" +
                 "\t\"st_address\"\tVARCHAR(256) NOT NULL,\n" +
                 "\t\"state\"\tVARCHAR(60) NOT NULL,\n" +
                 "\t\"city\"\tVARCHAR(256) NOT NULL,\n" +
@@ -156,21 +175,44 @@ public class DatabaseManager {
 
         String CREATE_PROJECTS_TABLE = "CREATE TABLE IF NOT EXISTS \"projects\" (\n" +
                 "\t\"project_id\"\tINTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n" +
+                "\t\"project_name\"\tVARCHAR(256) NOT NULL,\n" +
                 "\t\"start_date\"\tDATE,\n" +
-                "\t\"project_manager\"\tINTEGER NOT NULL,\n" +
                 "\t\"customer\"\tINTEGER NOT NULL,\n" +
                 "\t\"status\"\tTINYINT DEFAULT 0,\n" +
                 "\t\"team\"\tINTEGER NOT NULL,\n" +
                 "\t\"notes\"\tTEXT,\n" +
-                "\tFOREIGN KEY(\"project_manager\") REFERENCES \"users\"(\"user_id\"),\n" +
+                "\t\"priority\"\tTINYINT,\n" +
+                "\t\"completion_date\"\tDATE,\n" +
                 "\tFOREIGN KEY(\"customer\") REFERENCES \"customers\"(\"customer_id\"),\n" +
                 "\tFOREIGN KEY(\"team\") REFERENCES \"teams\"(\"team_id\")\n" +
                 ")";
         createTable(CREATE_PROJECTS_TABLE);
 
+        /********** USER_TEAMS TABLE **************/
+
+        String CREATE_USER_TEAMS_TABLE = "CREATE TABLE IF NOT EXISTS \"user_teams\" (\n" +
+                "\t\"user_id\"\tINTEGER NOT NULL,\n" +
+                "\t\"team_id\"\tINTEGER NOT NULL,\n" +
+                "\tPRIMARY KEY(\"user_id\",\"team_id\"),\n" +
+                "\tFOREIGN KEY(\"team_id\") REFERENCES \"teams\"(\"team_id\") ON DELETE CASCADE,\n" +
+                "\tFOREIGN KEY(\"user_id\") REFERENCES \"users\"(\"user_id\") ON DELETE CASCADE\n" +
+                ")";
+        createTable(CREATE_USER_TEAMS_TABLE);
+
+        /********** USER_PROJECTS TABLE **************/
+
+        String CREATE_USER_PROJECTS_TABLE = "CREATE TABLE IF NOT EXISTS \"user_projects\" (\n" +
+                "\t\"user_id\"\tINTEGER NOT NULL,\n" +
+                "\t\"project_id\"\tINTEGER NOT NULL,\n" +
+                "\tFOREIGN KEY(\"user_id\") REFERENCES \"users\"(\"user_id\") ON DELETE CASCADE,\n" +
+                "\tPRIMARY KEY(\"user_id\",\"project_id\"),\n" +
+                "\tFOREIGN KEY(\"project_id\") REFERENCES \"projects\"(\"project_id\") ON DELETE CASCADE\n" +
+                ")";
+        createTable(CREATE_USER_PROJECTS_TABLE);
+
     }
 
-    public static void createTable(String query) {
+    public void createTable(String query) {
         Connection connection = getConnection();
         if (connection != null) {
             try {
@@ -180,5 +222,63 @@ public class DatabaseManager {
                 e.printStackTrace();
             }
         }
+    }
+
+    public List<project_list_item> getProjects() {
+        Connection connection = getConnection();
+        List<project_list_item> projects = new ArrayList<>();
+        String query = "SELECT project_id, project_name, start_date, f_name || ' ' || l_name AS customer, status, team_name, notes\n" +
+                "FROM projects p JOIN customers c ON p.customer = c.customer_id\n" +
+                "JOIN teams t ON P.team = t.team_id\n" +
+                "ORDER BY status";
+        if (connection != null) {
+            try {
+                PreparedStatement ps = connection.prepareStatement(query);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    project_list_item item = new project_list_item(
+                            rs.getInt("project_id"),
+                            rs.getString("project_name"),
+                            rs.getString("start_date"),
+                            rs.getString("customer"),
+                            rs.getInt("status"),
+                            rs.getString("team_name"),
+                            rs.getString("notes")
+                    );
+                    projects.add(item);
+                }
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return projects;
+    }
+
+    public List<User> getMangers() {
+        Connection connection = getConnection();
+        List<User> managers = new ArrayList<>();
+        String query = "SELECT user_id, f_name, l_name, role\n" +
+                "FROM users\n" +
+                "WHERE role = 2";
+        if (connection != null) {
+            try {
+                PreparedStatement ps = connection.prepareStatement(query);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    User user = new User(
+                            rs.getInt("user_id"),
+                            rs.getString("f_name"),
+                            rs.getString("l_name"),
+                            rs.getInt("role")
+                    );
+                    managers.add(user);
+                }
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return managers;
     }
 }

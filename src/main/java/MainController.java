@@ -39,7 +39,12 @@ public class MainController extends Controller implements EventHandler<MouseEven
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         sideNavList = FXCollections.observableArrayList(homePane, buildPane, messagePane, marketPane);
-        ControllerHandler.getInstance().setParentController(this);
+
+        Mediator.getInstance().setParentController(this);
+
+        this.currentUser = Mediator.getInstance().getCurrentUser();
+
+        userLabel.setText(currentUser.getFirstName() + " " + currentUser.getLastName());
         loadFXML("/fxml/home.fxml");
     }
 
@@ -94,19 +99,8 @@ public class MainController extends Controller implements EventHandler<MouseEven
     }
 
     @Override
-    public void setParentController(Controller parentController) {
-        System.out.println("addParentController from MainController");
-    }
-
-    @Override
     public void onControllerLoadFXML(String FXML) {
-        System.out.println("onControllerAction from MainController");
+        System.out.println("onControllerLoadFXML from MainController");
         loadFXML(FXML);
     }
-
-    public void setCurrentUser(User user) {
-        this.currentUser = user;
-        userLabel.setText(currentUser.getFirstName() + " " + currentUser.getLastName());
-    }
-
 }

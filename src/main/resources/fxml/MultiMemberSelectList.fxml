@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane stylesheets="@../css/new_team_form.css">
+         <children>
+            <Button fx:id="createBtn" layoutX="933.0" layoutY="34.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onClick" prefHeight="35.0" prefWidth="125.0" styleClass="create_btn" stylesheets="@../css/new_team_form.css" text="Add" textFill="WHITE" AnchorPane.bottomAnchor="35.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="35.0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+            <Button fx:id="addBtn" layoutX="773.0" layoutY="31.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onClick" prefHeight="35.0" prefWidth="125.0" styleClass="other_button" stylesheets="@../css/new_team_form.css" text="Cancel" textFill="WHITE" AnchorPane.bottomAnchor="35.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="35.0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <ListView fx:id="memberList" prefHeight="200.0" prefWidth="200.0" />
+   </children>
+</VBox>

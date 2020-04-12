@@ -50,8 +50,11 @@ public class DragResizer {
 
         double mouseX = event.getX();
         double newWidth = region.getMinWidth() + (mouseX - x);
-        region.setMinWidth(newWidth);
-        x = mouseX;
+        if (newWidth <= 500) {
+            region.setMinWidth(newWidth);
+            x = mouseX;
+        }
+
     }
 
     protected void mousePressed(MouseEvent event) {

@@ -23,7 +23,7 @@
                                         <Image url="@../icons/temp_logo.png" />
                                     </image>
                                 </ImageView>
-                                <Label layoutX="90.0" layoutY="23.0" stylesheets="@../css/main.css" text="ProtoGlyde" textFill="WHITE">
+                                <Label layoutX="90.0" layoutY="23.0" stylesheets="@../css/main.css" text="ProGlyde" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="20.0" />
                                     </font>
@@ -32,7 +32,7 @@
                         </Pane>
                         <AnchorPane prefHeight="75.0" prefWidth="367.0" stylesheets="@../css/main.css">
                             <children>
-                                <ImageView fx:id="profileIcon" fitHeight="25.0" fitWidth="25.0" layoutX="198.0" layoutY="25.0" onMouseClicked="#handle" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fx:id="profileIcon" fitHeight="30.0" fitWidth="30.0" layoutX="196.0" layoutY="24.0" onMouseClicked="#handle" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../icons/default_profile_img.png" />
                                     </image>
@@ -53,7 +53,7 @@
                             <children>
                                 <Pane fx:id="homePane" onMouseClicked="#handle" prefHeight="75.0" prefWidth="75.0" styleClass="side_pane_selected" stylesheets="@../css/main.css">
                                     <children>
-                                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
                                                 <Image url="@../icons/home.png" />
                                             </image>
@@ -62,7 +62,7 @@
                                 </Pane>
                                 <Pane fx:id="buildPane" layoutY="75.0" onMouseClicked="#handle" prefHeight="75.0" prefWidth="75.0" stylesheets="@../css/main.css">
                                     <children>
-                                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="25.0" layoutY="25.0" onMouseClicked="#handle" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="23.0" layoutY="23.0" onMouseClicked="#handle" pickOnBounds="true" preserveRatio="true">
                                             <image>
                                                 <Image url="@../icons/build.png" />
                                             </image>
@@ -71,18 +71,18 @@
                                 </Pane>
                                 <Pane fx:id="messagePane" layoutY="150.0" onMouseClicked="#handle" prefHeight="75.0" prefWidth="75.0" stylesheets="@../css/main.css">
                                     <children>
-                                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="25.0" layoutY="25.0" onMouseClicked="#handle" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="23.0" layoutY="23.0" onMouseClicked="#handle" pickOnBounds="true" preserveRatio="true">
                                             <image>
-                                                <Image url="@../icons/message_bubbles.png" />
+                                                <Image url="@../icons/chat.png" />
                                             </image>
                                         </ImageView>
                                     </children>
                                 </Pane>
                                 <Pane fx:id="marketPane" layoutY="225.0" onMouseClicked="#handle" prefHeight="75.0" prefWidth="75.0" stylesheets="@../css/main.css">
                                     <children>
-                                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="25.0" layoutY="25.0" onMouseClicked="#handle" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="23.0" layoutY="22.0" onMouseClicked="#handle" pickOnBounds="true" preserveRatio="true">
                                             <image>
-                                                <Image url="@../icons/market.png" />
+                                                <Image url="@../icons/merch.png" />
                                             </image>
                                         </ImageView>
                                     </children>
@@ -91,7 +91,7 @@
                         </Pane>
                         <AnchorPane prefHeight="170.0" prefWidth="76.0" stylesheets="@../css/main.css">
                             <children>
-                                <ImageView fx:id="settingsIcon" fitHeight="25.0" fitWidth="25.0" layoutX="25.0" layoutY="110.0" onMouseClicked="#handle" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fx:id="settingsIcon" fitHeight="30.0" fitWidth="30.0" layoutX="22.0" layoutY="110.0" onMouseClicked="#handle" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../icons/settings.png" />
                                     </image>

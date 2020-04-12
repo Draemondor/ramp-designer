@@ -18,7 +18,7 @@
 
 <ScrollPane fitToHeight="true" fitToWidth="true" pannable="true" styleClass="root" stylesheets="@../css/new_project_form.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NewProjectFormController">
     <content>
-        <VBox styleClass="root" stylesheets="@../css/new_project_form.css">
+        <VBox fx:id="root" styleClass="root" stylesheets="@../css/new_project_form.css">
             <children>
                 <AnchorPane styleClass="top_pane" stylesheets="@../css/new_project_form.css">
                     <children>
@@ -30,6 +30,11 @@
                             <font>
                                 <Font name="System Bold" size="15.0" />
                             </font></Button>
+                  <Label fx:id="warning_label" layoutX="32.0" layoutY="34.0" prefWidth="450.0" textFill="#f24d4d" wrapText="true" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="33.0">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
                     </children>
                 </AnchorPane>
                 <HBox styleClass="root" stylesheets="@../css/new_project_form.css" VBox.vgrow="ALWAYS">

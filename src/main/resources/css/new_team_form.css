@@ -1,5 +1,7 @@
 .root {
     -fx-background-color: #494843;
+    -fx-border-width: 1 1 1 1;
+    -fx-border-color: #838383;
 }
 
 .create_btn {
@@ -16,5 +18,60 @@
 }
 
 .other_button:hover {
-    -fx-background-color: #838383;;
+    -fx-background-color: #838383;
+}
+
+.left_pane {
+    -fx-border-width: 0 1 0 0;
+    -fx-border-color: #636363;
+}
+
+.new_project_color_scheme_selected {
+    -fx-border-width: 0 0 2 0;
+    -fx-border-color: #0B90B5;
+}
+
+.new_project_color_scheme_deselected {
+    -fx-background-color: #494843;
+}
+
+.add_members_pane {
+    -fx-background-color: #19455D;
+    -fx-border-width: 1 1 1 1;
+    -fx-border-color: #838383;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}
+
+.list-view {
+    -fx-selection-bar:#0B90B5;
+    -fx-background-color: #636363, -fx-control-inner-background;
+    -fx-background-insets: 0, 1;
+}
+
+.list-view .list-cell:odd {
+    -fx-background-color: #41403D;
+    -fx-font-size: 15;
+}
+
+.list-view .list-cell:even {
+    -fx-background-color: #3E3D3A;
+    -fx-font-size: 15;
+}
+
+.list-view .list-cell:selected:odd,
+.list-view .list-cell:selected:even {
+    -fx-background-color: -fx-background;
+}
+
+.combo-box-popup .list-view .list-cell {
+    -fx-font-size: 16;
+    -fx-padding: 5 5 5 5;
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
+.combo-box-popup .list-view .list-cell:filled:hover {
+    -fx-background-color: #3DAEE9;
+    -fx-text-fill: -fx-text-inner-color;
 }

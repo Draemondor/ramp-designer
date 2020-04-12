@@ -1,4 +1,3 @@
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,6 +14,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
+        DatabaseManager manager = DatabaseManager.getInstance();
+        manager.getConnection();
+        manager.createDefaultTables();
+
         Parent root;
         try {
             root = FXMLLoader.load(getClass().getResource("/fxml/loginRegister.fxml"));
@@ -26,10 +29,6 @@ public class Main extends Application {
         stage.setScene(scene);
 //        stage.setMaximized(true);
         stage.setResizable(false);
-        root.requestFocus();
         stage.show();
-
-        DatabaseManager.getConnection();
-        DatabaseManager.createDefaultTables();
     }
 }

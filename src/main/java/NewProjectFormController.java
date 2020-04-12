@@ -1,76 +1,177 @@
+import Entities.Team;
+import Entities.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class NewProjectFormController extends Controller implements EventHandler<MouseEvent>  {
+public class NewProjectFormController extends Controller  {
 
     @FXML
-    Pane schemeLightBlue, schemeBlue, schemeGreen, schemeOrange, schemeRed;
+    private Label warning_label;
 
     @FXML
-    Button cancelBtn, saveProjectBtn, newTeamBtn;
+    private Button cancelBtn, saveProjectBtn, newTeamBtn;
 
     @FXML
-    TextField project_name, customer_FName, customer_LName, customer_email, customer_primary_phone,
+    private TextField project_name, customer_FName, customer_LName, customer_email, customer_primary_phone,
             customer_secondary_phone, customer_st_address, customer_city, customer_zip;
 
     @FXML
-    ComboBox project_manager, existing_team, customer_state;
+    private ComboBox<User> project_manager;
 
     @FXML
-    DatePicker start_date;
+    private ComboBox<Team> existing_team;
 
-    ObservableList<Pane> newProjectColorScheme;
+    @FXML
+    private ComboBox<String> customer_state;
+
+    @FXML
+    private DatePicker start_date;
+
+    private Team projectTeam;
+    private User currentManager;
+    private DatabaseManager databaseManager;
+
+    String warning_prefix = "The following information is still missing: ";
+    ObservableList<User> managers;
+    ObservableList<Team> teams;
+    ObservableList<String> states;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        newProjectColorScheme = FXCollections.observableArrayList(schemeLightBlue, schemeBlue, schemeGreen, schemeOrange, schemeRed);
+        super.initialize(location, resources);
+        states = FXCollections.observableArrayList(ApplicationResources.STATES);
+        customer_state.setItems(states);
+        getDatabaseInfo();
+    }
+
+    public void getDatabaseInfo() {
+        databaseManager = DatabaseManager.getInstance();
+        managers = FXCollections.observableArrayList();
+        teams = FXCollections.observableArrayList();
+
+        new Thread(() -> {
+            managers.addAll(databaseManager.getMangers());
+            project_manager.setItems(managers);
+        }).start();
     }
 
     @FXML
     private void projectHandler(ActionEvent event) {
         if (event.getSource() == cancelBtn) {
-            ControllerHandler.getInstance().onControllerLoadFXML("/fxml/home.fxml");
+            Mediator.getInstance().onControllerLoadFXML("/fxml/home.fxml");
         }
         if (event.getSource() == saveProjectBtn) {
-            System.out.println("save");
+            verifyProjectCredentials();
+        }
+        if (event.getSource() == newTeamBtn) {
+            displayNewTeamForm();
         }
     }
 
-    @Override
-    public void handle(MouseEvent event) {
-        if (event.getSource() == schemeLightBlue)
-            setSelectedProjectColorScheme(schemeLightBlue);
-        if (event.getSource() == schemeBlue)
-            setSelectedProjectColorScheme(schemeBlue);
-        if (event.getSource() == schemeGreen)
-            setSelectedProjectColorScheme(schemeGreen);
-        if (event.getSource() == schemeOrange)
-            setSelectedProjectColorScheme(schemeOrange);
-        if (event.getSource() == schemeRed)
-            setSelectedProjectColorScheme(schemeRed);
+    public void verifyProjectCredentials() {
+        warning_label.setText("");
+        if (project_name.getText().trim().isEmpty()) {
+            warning_label.setText(warning_prefix + "Project Name");
+            project_name.requestFocus();
+            return;
+        }
+
+        if (start_date.getEditor().getText().isEmpty()) {
+            warning_label.setText(warning_prefix + "Start Date");
+            start_date.requestFocus();
+            return;
+        }
+
+        if (currentManager == null) {
+            warning_label.setText(warning_prefix + "Project Manager");
+            project_manager.requestFocus();
+            return;
+        }
+
+        if (projectTeam == null) {
+            warning_label.setText(warning_prefix + "Project Team");
+            existing_team.requestFocus();
+            return;
+        }
+
+        if (customer_FName.getText().trim().isEmpty()) {
+            warning_label.setText(warning_prefix + "Customer First Name");
+            customer_FName.requestFocus();
+            return;
+        }
+
+        if (customer_LName.getText().trim().isEmpty()) {
+            warning_label.setText(warning_prefix + "Customer Last Name");
+            customer_LName.requestFocus();
+            return;
+        }
+
+        if (customer_email.getText().trim().isEmpty()) {
+            warning_label.setText(warning_prefix + "Customer Email");
+            customer_email.requestFocus();
+            return;
+        }
+
+        if (customer_primary_phone.getText().trim().isEmpty()) {
+            warning_label.setText(warning_prefix + "Customer Primary Phone");
+            customer_primary_phone.requestFocus();
+            return;
+        }
+
+        if (customer_st_address.getText().trim().isEmpty()) {
+            warning_label.setText(warning_prefix + "Customer Street Address");
+            customer_st_address.requestFocus();
+            return;
+        }
+
+        if (customer_city.getText().trim().isEmpty()) {
+            warning_label.setText(warning_prefix + "Customer City");
+            customer_city.requestFocus();
+            return;
+        }
+
+        if (customer_state.getEditor().getText().isEmpty()) {
+            warning_label.setText(warning_prefix + "Customer State");
+            customer_state.requestFocus();
+            return;
+        }
+
+        if (customer_zip.getText().trim().isEmpty()) {
+            warning_label.setText(warning_prefix + "Customer Zip Code");
+            customer_zip.requestFocus();
+        }
     }
 
-    public void setSelectedProjectColorScheme(Pane colorScheme) {
-        System.out.println(colorScheme.getId());
-        colorScheme.getStyleClass().clear();
-        colorScheme.getStyleClass().add("new_project_color_scheme_selected");
-        for (int i = 0; i < newProjectColorScheme.size(); i++) {
-            if (!newProjectColorScheme.get(i).getId().equals(colorScheme.getId())) {
-                newProjectColorScheme.get(i).getStyleClass().clear();
-                newProjectColorScheme.get(i).getStyleClass().add("new_project_color_scheme_deselected");
-            }
+    public void displayNewTeamForm() {
+        Mediator.getInstance().setParentController(this);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/new_team_form.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.setOnCloseRequest(event -> Mediator.getInstance().removeParentController());
+
+            Stage parent = (Stage) newTeamBtn.getScene().getWindow();
+            stage.initOwner(parent);
+            stage.initModality(Modality.APPLICATION_MODAL);
+
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
