@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<GridPane fx:id="gridPane" alignment="CENTER" prefHeight="50.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <columnConstraints>
+        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <Label fx:id="name" text="full name" textFill="WHITE" GridPane.rowIndex="1">
+            <padding>
+                <Insets left="5.0" />
+            </padding>
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+        <Label fx:id="email" text="email" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <GridPane.margin>
+                <Insets left="5.0" />
+            </GridPane.margin>
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+        <Label fx:id="role" text="role" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <padding>
+                <Insets left="5.0" />
+            </padding>
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+      <AnchorPane GridPane.columnIndex="3" GridPane.rowIndex="1">
+         <children>
+            <StackPane layoutY="12.0">
+               <children>
+                  <Button fx:id="remove_user" mnemonicParsing="false" prefWidth="100.0" styleClass="remove-button" stylesheets="@../css/list_items.css" text="Remove" />
+                  <Button fx:id="add_user" mnemonicParsing="false" prefWidth="100.0" styleClass="add-button" stylesheets="@../css/list_items.css" text="Add" />
+               </children>
+            </StackPane>
+         </children>
+      </AnchorPane>
+    </children>
+</GridPane>

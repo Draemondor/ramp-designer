@@ -1,25 +1,19 @@
 package Entities;
 
 public class Project {
-    private int PID;
+    private int PID, customer, status, team, priority;
     private String project_name, start_date, notes;
-    private User project_manager;
-    private Customer customer;
-    private int status;
 
     public Project() {  }
 
     public Project(String name) { this.project_name = name; }
 
+    /****** constructor for new project form ***********/
 
-
-    public Project(String project_name, Customer customer, User project_manager, String start_date, String notes, int status) {
-        this.project_name = project_name;
-        this.customer = customer;
-        this.project_manager = project_manager;
-        this.start_date = start_date;
-        this.notes = notes;
-        this.status = status;
+    public Project(String name, String startDate, int tid) {
+        this.project_name = name;
+        this.start_date = startDate;
+        this.team = tid;
     }
 
     public int getPID() {
@@ -54,20 +48,12 @@ public class Project {
         notes = notes;
     }
 
-    public Customer getCustomer() {
+    public int getCustomer() {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
+    public void setCustomer(int customer) {
         this.customer = customer;
-    }
-
-    public User getProject_manager() {
-        return project_manager;
-    }
-
-    public void setProject_manager(User project_manager) {
-        this.project_manager = project_manager;
     }
 
     public int getStatus() {

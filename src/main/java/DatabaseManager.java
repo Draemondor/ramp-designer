@@ -1,5 +1,9 @@
+import Entities.Customer;
+import Entities.Project;
+import Entities.Team;
 import Entities.User;
-import List_Items.project_list_item;
+import List_Items.MemberListItem;
+import List_Items.ProjectListItem;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.*;
@@ -224,9 +228,11 @@ public class DatabaseManager {
         }
     }
 
-    public List<project_list_item> getProjects() {
+    /********** Retrieve all projects for home screen list **************/
+
+    public List<ProjectListItem> getAllProjects() {
         Connection connection = getConnection();
-        List<project_list_item> projects = new ArrayList<>();
+        List<ProjectListItem> projects = new ArrayList<>();
         String query = "SELECT project_id, project_name, start_date, f_name || ' ' || l_name AS customer, status, team_name, notes\n" +
                 "FROM projects p JOIN customers c ON p.customer = c.customer_id\n" +
                 "JOIN teams t ON P.team = t.team_id\n" +
@@ -236,7 +242,7 @@ public class DatabaseManager {
                 PreparedStatement ps = connection.prepareStatement(query);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
-                    project_list_item item = new project_list_item(
+                    ProjectListItem item = new ProjectListItem(
                             rs.getInt("project_id"),
                             rs.getString("project_name"),
                             rs.getString("start_date"),
@@ -255,7 +261,9 @@ public class DatabaseManager {
         return projects;
     }
 
-    public List<User> getMangers() {
+    /********** Retrieve managers for combobox selection **************/
+
+    public List<User> getManagers() {
         Connection connection = getConnection();
         List<User> managers = new ArrayList<>();
         String query = "SELECT user_id, f_name, l_name, role\n" +
@@ -280,5 +288,127 @@ public class DatabaseManager {
             }
         }
         return managers;
+    }
+
+    /********** Retrieve managers for list item **************/
+
+    public List<MemberListItem> getManagerListItems() {
+        Connection connection = getConnection();
+        List<MemberListItem> managers = new ArrayList<>();
+        String query = "SELECT user_id, f_name || ' ' || l_name AS name, email, role\n" +
+                "FROM users\n" +
+                "WHERE role = 2";
+        if (connection != null) {
+            try {
+                PreparedStatement ps = connection.prepareStatement(query);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    MemberListItem user = new MemberListItem(
+                            rs.getInt("user_id"),
+                            rs.getString("name"),
+                            rs.getString("email"),
+                            rs.getInt("role")
+                    );
+                    managers.add(user);
+                }
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return managers;
+    }
+
+    /********** Retrieve Team Leaders for list item **************/
+
+    public List<MemberListItem> getTeamLeaderListItems() {
+        Connection connection = getConnection();
+        List<MemberListItem> leaders = new ArrayList<>();
+        String query = "SELECT user_id, f_name || ' ' || l_name AS name, email, role\n" +
+                "FROM users\n" +
+                "WHERE role = 1";
+        if (connection != null) {
+            try {
+                PreparedStatement ps = connection.prepareStatement(query);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    MemberListItem user = new MemberListItem(
+                            rs.getInt("user_id"),
+                            rs.getString("name"),
+                            rs.getString("email"),
+                            rs.getInt("role")
+                    );
+                    leaders.add(user);
+                }
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return leaders;
+    }
+
+    /********** Retrieve members for list item **************/
+
+    public List<MemberListItem> getMemberListItems() {
+        Connection connection = getConnection();
+        List<MemberListItem> members = new ArrayList<>();
+        String query = "SELECT user_id, f_name || ' ' || l_name AS name, email, role\n" +
+                "FROM users\n" +
+                "WHERE role = 0";
+        if (connection != null) {
+            try {
+                PreparedStatement ps = connection.prepareStatement(query);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    MemberListItem user = new MemberListItem(
+                            rs.getInt("user_id"),
+                            rs.getString("name"),
+                            rs.getString("email"),
+                            rs.getInt("role")
+                    );
+                    members.add(user);
+                }
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return members;
+    }
+
+    /********** Retrieve teams for combobox selection **************/
+
+    public List<Team> getTeams() {
+        Connection connection = getConnection();
+        List<Team> teams = new ArrayList<>();
+        String query = "SELECT * FROM teams";
+        if (connection != null) {
+            try {
+                PreparedStatement ps = connection.prepareStatement(query);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    Team team = new Team(
+                            rs.getInt("team_id"),
+                            rs.getInt("team_color"),
+                            rs.getInt("team_creator"),
+                            rs.getInt("privacy_level"),
+                            rs.getString("team_name"),
+                            rs.getString("date_created")
+                    );
+                    teams.add(team);
+                }
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return teams;
+    }
+
+    /********** From the new project form, create/add the new customer and project **************/
+
+    public void addProject(Project project, Customer customer) {
+
     }
 }

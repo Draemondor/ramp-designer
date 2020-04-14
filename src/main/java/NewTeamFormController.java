@@ -1,23 +1,22 @@
-import Entities.Project;
 import Entities.User;
+import List_Items.MemberListItem;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+import java.io.IOException;
 import java.net.URL;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
-import static java.util.Map.entry;
 
 public class NewTeamFormController extends Controller implements OnFXMLChangedListener {
     public enum TEAM_MEMBER_TYPE {Manager, Leader, Member}
@@ -37,44 +36,22 @@ public class NewTeamFormController extends Controller implements OnFXMLChangedLi
     @FXML
     private AnchorPane add_manager, add_leader, add_member;
 
+    @FXML
+    ListView<MemberListItem> availableList;
 
     private User currentUser;
-
-//    @FXML
-//    AnchorPane schemeLightBlue, schemeBlue, schemeGreen, schemeOrange, schemeRed;
-//
-//    ObservableList<AnchorPane> teamColorScheme;
+    private DatabaseManager databaseManager;
+    public Map<Integer, MemberListItem> addedMembers;
+    private ObservableList<MemberListItem> searchedMembers;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        teamColorScheme = FXCollections.observableArrayList(schemeLightBlue, schemeBlue, schemeGreen, schemeOrange, schemeRed);
         currentUser = Mediator.getInstance().getCurrentUser();
+        databaseManager = DatabaseManager.getInstance();
+        addedMembers = new HashMap<>();
+        searchedMembers = FXCollections.observableArrayList();
         setFields();
     }
-
-//    public void handle(MouseEvent event) {
-//        if (event.getSource() == schemeLightBlue)
-//            setSelectedProjectColorScheme(schemeLightBlue);
-//        if (event.getSource() == schemeBlue)
-//            setSelectedProjectColorScheme(schemeBlue);
-//        if (event.getSource() == schemeGreen)
-//            setSelectedProjectColorScheme(schemeGreen);
-//        if (event.getSource() == schemeOrange)
-//            setSelectedProjectColorScheme(schemeOrange);
-//        if (event.getSource() == schemeRed)
-//            setSelectedProjectColorScheme(schemeRed);
-//    }
-//
-//    public void setSelectedProjectColorScheme(AnchorPane colorScheme) {
-//        colorScheme.getStyleClass().clear();
-//        colorScheme.getStyleClass().add("new_project_color_scheme_selected");
-//        for (AnchorPane anchorPane : teamColorScheme) {
-//            if (!anchorPane.getId().equals(colorScheme.getId())) {
-//                anchorPane.getStyleClass().clear();
-//                anchorPane.getStyleClass().add("new_project_color_scheme_deselected");
-//            }
-//        }
-//    }
 
     public void setFields() {
         mngr_name.setText(currentUser.getFirstName() + " " + currentUser.getLastName());
@@ -109,14 +86,20 @@ public class NewTeamFormController extends Controller implements OnFXMLChangedLi
     }
 
     public void selectFromUserList(TEAM_MEMBER_TYPE member_type) {
+        searchedMembers.clear();
         switch (member_type) {
             case Manager:
+                searchedMembers.addAll(databaseManager.getManagerListItems());
                 break;
             case Leader:
+                searchedMembers.addAll(databaseManager.getTeamLeaderListItems());
                 break;
             case Member:
+               searchedMembers.addAll(databaseManager.getMemberListItems());
                 break;
         }
+        availableList.setItems(searchedMembers);
+        availableList.setCellFactory(member -> new MemberAddListCell());
     }
 
     public void onClick(ActionEvent event) {
@@ -129,6 +112,77 @@ public class NewTeamFormController extends Controller implements OnFXMLChangedLi
         if (event.getSource() == createBtn) {
             System.out.println("create");
         }
+    }
+
+    class MemberAddListCell extends ListCell<MemberListItem> {
+
+        @FXML
+        GridPane gridPane;
+
+        @FXML
+        Label name, email, role;
+
+        @FXML
+        Button add_user, remove_user;
+
+        private FXMLLoader loader;
+
+        @Override
+        protected void updateItem(MemberListItem item, boolean empty) {
+            super.updateItem(item, empty);
+
+            if (empty || item == null) {
+                setText(null);
+                setGraphic(null);
+            } else {
+                if (loader == null) {
+                    loader = new FXMLLoader(getClass().getResource("/fxml/user_list_item.fxml"));
+                    loader.setController(this);
+                    try {
+                        loader.load();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                name.setText(item.getFull_name());
+                email.setText(item.getEmail());
+                role.setText(ApplicationResources.USER_REPUTE[item.getRole()]);
+                setAssociativity(item.isSelected());
+
+                if (addedMembers.containsKey(item.getUID()))
+                    item.setSelected(true);
+
+                if (item.isSelected()) remove_user.toFront();
+                else add_user.toFront();
+
+                setText(null);
+                setGraphic(gridPane);
+
+                add_user.setOnAction(eventEventHandler);
+                remove_user.setOnAction(eventEventHandler);
+
+            }
+        }
+
+        private void setAssociativity(Boolean isSelected) {
+            if (isSelected) remove_user.toFront();
+            else add_user.toFront();
+        }
+
+        EventHandler<ActionEvent> eventEventHandler = new EventHandler<>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (event.getSource() == add_user) {
+                    getItem().setSelected(true);
+                    addedMembers.put(getItem().getUID(), getItem());
+                    remove_user.toFront();
+                } else if (event.getSource() == remove_user) {
+                    getItem().setSelected(false);
+                    addedMembers.remove(getItem().getUID());
+                    add_user.toFront();
+                }
+            }
+        };
     }
 
     @Override

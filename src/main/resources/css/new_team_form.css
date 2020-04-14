@@ -43,9 +43,19 @@
     -fx-border-radius: 5;
 }
 
+.add_members_pane:hover {
+    -fx-background-color: #0B90B5;
+}
+
+.scroll-pane {
+    -fx-background-color: #494843;
+    -fx-hbar-policy: never;
+    -fx-vbar-policy: never;
+}
+
 .list-view {
     -fx-selection-bar:#0B90B5;
-    -fx-background-color: #636363, -fx-control-inner-background;
+    -fx-background-color: transparent;
     -fx-background-insets: 0, 1;
 }
 

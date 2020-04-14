@@ -1,9 +1,9 @@
 public class ApplicationResources {
 
     public static final String[] USER_REPUTE = {
-            "Manager",
+            "Member",
             "Team Leader",
-            "Member"};
+            "Manager"};
 
     public static final String[] TEAM_PRIVACY_LEVEL = {
             "Open",

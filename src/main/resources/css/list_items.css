@@ -1,0 +1,42 @@
+.IN-PLANNING {
+    -fx-border-color: #13A4FF;
+    -fx-border-radius: 15 15 15 15;
+}
+
+.IN-PROGRESS {
+    -fx-border-color: #71D672;
+    -fx-border-radius: 15 15 15 15;
+}
+
+.ON-HOLD {
+    -fx-border-color: #FFED4D;
+    -fx-border-radius: 15 15 15 15;
+}
+
+.CANCELED {
+    -fx-border-color: #FF6661;
+    -fx-border-radius: 15 15 15 15;
+}
+
+.COMPLETED {
+    -fx-border-color: #A470E5;
+    -fx-border-radius: 15 15 15 15;
+}
+
+.remove-button {
+    -fx-background-color: #AB231D;
+    -fx-text-fill: #ffffff;
+}
+
+.remove-button:hover {
+    -fx-background-color: #F8251C;
+}
+
+.add-button {
+    -fx-background-color: #00C702;
+    -fx-text-fill: #ffffff;
+}
+
+.add-button:hover {
+    -fx-background-color: #02F802;
+}

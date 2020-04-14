@@ -1,12 +1,12 @@
 package Entities;
 
 public class Customer {
-    private int CID;
-    private String first_name, last_name, str_address, state, city, zip, pPhone, sPhone, email;
+    private int CID, zip;
+    private String first_name, last_name, str_address, state, city, pPhone, sPhone, email;
 
     public Customer() {}
 
-    public Customer(String first_name, String last_name, String str_address, String state, String city, String zip, String pPhone, String sPhone, String email) {
+    public Customer(String first_name, String last_name, String email, String pPhone, String sPhone, String str_address, String state, String city, int zip) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.str_address = str_address;
@@ -66,11 +66,11 @@ public class Customer {
         this.city = city;
     }
 
-    public String getZip() {
+    public int getZip() {
         return zip;
     }
 
-    public void setZip(String zip) {
+    public void setZip(int zip) {
         this.zip = zip;
     }
 

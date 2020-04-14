@@ -1,5 +1,9 @@
+import Entities.Customer;
+import Entities.Project;
 import Entities.Team;
 import Entities.User;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -39,8 +43,6 @@ public class NewProjectFormController extends Controller  {
     @FXML
     private DatePicker start_date;
 
-    private Team projectTeam;
-    private User currentManager;
     private DatabaseManager databaseManager;
 
     String warning_prefix = "The following information is still missing: ";
@@ -53,6 +55,12 @@ public class NewProjectFormController extends Controller  {
         super.initialize(location, resources);
         states = FXCollections.observableArrayList(ApplicationResources.STATES);
         customer_state.setItems(states);
+
+        customer_zip.textProperty().addListener((observableValue, s, t1) -> {
+            if (!t1.matches("\\D"))
+                customer_zip.setText(t1.replaceAll("[^\\d]", ""));
+        });
+
         getDatabaseInfo();
     }
 
@@ -61,10 +69,11 @@ public class NewProjectFormController extends Controller  {
         managers = FXCollections.observableArrayList();
         teams = FXCollections.observableArrayList();
 
-        new Thread(() -> {
-            managers.addAll(databaseManager.getMangers());
-            project_manager.setItems(managers);
-        }).start();
+        managers.addAll(databaseManager.getManagers());
+        project_manager.setItems(managers);
+
+        teams.addAll(databaseManager.getTeams());
+        existing_team.setItems(teams);
     }
 
     @FXML
@@ -81,24 +90,37 @@ public class NewProjectFormController extends Controller  {
     }
 
     public void verifyProjectCredentials() {
+        String name = project_name.getText().trim();
+        String startDate = start_date.getEditor().getText();
+//        User currentManager = project_manager.getValue();
+        Team projectTeam = existing_team.getValue();
+        String fName = customer_FName.getText().trim();
+        String lName = customer_LName.getText().trim();
+        String email = customer_email.getText().trim();
+        String pPhone = customer_primary_phone.getText().trim();
+        String sPhone = customer_secondary_phone.getText().trim();
+        String stAddress = customer_st_address.getText().trim();
+        String city = customer_city.getText().trim();
+        String state = customer_state.getValue();
+
         warning_label.setText("");
-        if (project_name.getText().trim().isEmpty()) {
+        if (name.isEmpty()) {
             warning_label.setText(warning_prefix + "Project Name");
             project_name.requestFocus();
             return;
         }
 
-        if (start_date.getEditor().getText().isEmpty()) {
+        if (startDate.isEmpty()) {
             warning_label.setText(warning_prefix + "Start Date");
             start_date.requestFocus();
             return;
         }
 
-        if (currentManager == null) {
-            warning_label.setText(warning_prefix + "Project Manager");
-            project_manager.requestFocus();
-            return;
-        }
+//        if (currentManager == null) {
+//            warning_label.setText(warning_prefix + "Project Manager");
+//            project_manager.requestFocus();
+//            return;
+//        }
 
         if (projectTeam == null) {
             warning_label.setText(warning_prefix + "Project Team");
@@ -106,43 +128,43 @@ public class NewProjectFormController extends Controller  {
             return;
         }
 
-        if (customer_FName.getText().trim().isEmpty()) {
+        if (fName.isEmpty()) {
             warning_label.setText(warning_prefix + "Customer First Name");
             customer_FName.requestFocus();
             return;
         }
 
-        if (customer_LName.getText().trim().isEmpty()) {
+        if (lName.isEmpty()) {
             warning_label.setText(warning_prefix + "Customer Last Name");
             customer_LName.requestFocus();
             return;
         }
 
-        if (customer_email.getText().trim().isEmpty()) {
+        if (email.isEmpty()) {
             warning_label.setText(warning_prefix + "Customer Email");
             customer_email.requestFocus();
             return;
         }
 
-        if (customer_primary_phone.getText().trim().isEmpty()) {
+        if (pPhone.isEmpty()) {
             warning_label.setText(warning_prefix + "Customer Primary Phone");
             customer_primary_phone.requestFocus();
             return;
         }
 
-        if (customer_st_address.getText().trim().isEmpty()) {
+        if (stAddress.isEmpty()) {
             warning_label.setText(warning_prefix + "Customer Street Address");
             customer_st_address.requestFocus();
             return;
         }
 
-        if (customer_city.getText().trim().isEmpty()) {
+        if (city.isEmpty()) {
             warning_label.setText(warning_prefix + "Customer City");
             customer_city.requestFocus();
             return;
         }
 
-        if (customer_state.getEditor().getText().isEmpty()) {
+        if (state == null) {
             warning_label.setText(warning_prefix + "Customer State");
             customer_state.requestFocus();
             return;
@@ -151,7 +173,25 @@ public class NewProjectFormController extends Controller  {
         if (customer_zip.getText().trim().isEmpty()) {
             warning_label.setText(warning_prefix + "Customer Zip Code");
             customer_zip.requestFocus();
+            return;
         }
+//        String name = project_name.getText().trim();
+//        String startDate = start_date.getEditor().getText();
+//        User currentManager = project_manager.getValue();
+//        Team projectTeam = existing_team.getValue();
+//        String fName = customer_FName.getText().trim();
+//        String lName = customer_LName.getText().trim();
+//        String email = customer_email.getText().trim();
+//        String pPhone = customer_primary_phone.getText().trim();
+//        String sPhone = customer_secondary_phone.getText().trim();
+//        String stAddress = customer_st_address.getText().trim();
+//        String city = customer_city.getText().trim();
+//        String state = customer_state.getValue();
+
+        int zip = Integer.parseInt(customer_zip.getText().trim());
+        Customer customer = new Customer(fName, lName, email, pPhone, sPhone, stAddress, state, city, zip);
+        Project project = new Project(name, startDate, projectTeam.getTID());
+        databaseManager.addProject(project, customer);
     }
 
     public void displayNewTeamForm() {
@@ -168,7 +208,7 @@ public class NewProjectFormController extends Controller  {
             stage.initOwner(parent);
             stage.initModality(Modality.APPLICATION_MODAL);
 
-            stage.showAndWait();
+            stage.show();
 
         } catch (IOException e) {
             e.printStackTrace();

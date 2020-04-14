@@ -1,14 +1,16 @@
 package Entities;
 
 public class Team {
-    private int TID, teamColor;
-    private String teamName;
-    private User team_manager;
+    private int TID, teamColor, teamCreator, privacyLevel;
+    private String teamName, dateCreated;
 
-    public Team(String teamName, User team_manager, int teamColor) {
-        this.teamName = teamName;
+    public Team(int TID, int teamColor, int teamCreator, int privacyLevel, String teamName, String dateCreated) {
+        this.TID = TID;
         this.teamColor = teamColor;
-        this.team_manager = team_manager;
+        this.teamCreator = teamCreator;
+        this.privacyLevel = privacyLevel;
+        this.teamName = teamName;
+        this.dateCreated = dateCreated;
     }
 
     public int getTID() {
@@ -27,6 +29,22 @@ public class Team {
         this.teamColor = teamColor;
     }
 
+    public int getTeamCreator() {
+        return teamCreator;
+    }
+
+    public void setTeamCreator(int teamCreator) {
+        this.teamCreator = teamCreator;
+    }
+
+    public int getPrivacyLevel() {
+        return privacyLevel;
+    }
+
+    public void setPrivacyLevel(int privacyLevel) {
+        this.privacyLevel = privacyLevel;
+    }
+
     public String getTeamName() {
         return teamName;
     }
@@ -35,11 +53,16 @@ public class Team {
         this.teamName = teamName;
     }
 
-    public User getTeam_manager() {
-        return team_manager;
+    public String getDateCreated() {
+        return dateCreated;
     }
 
-    public void setTeam_manager(User team_manager) {
-        this.team_manager = team_manager;
+    public void setDateCreated(String dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    @Override
+    public String toString() {
+        return teamName;
     }
 }
