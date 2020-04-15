@@ -50,9 +50,6 @@ public class MainController extends Controller implements EventHandler<MouseEven
 
     @Override
     public void handle(MouseEvent event) {
-        if (event.getSource() == profileIcon) {
-            loadFXML("/fxml/profile.fxml");
-        }
         if (event.getSource() == homePane) {
             setSelectedGradient(homePane);
             loadFXML("/fxml/home.fxml");
@@ -61,20 +58,23 @@ public class MainController extends Controller implements EventHandler<MouseEven
             setSelectedGradient(buildPane);
             loadFXML("/fxml/build.fxml");
         }
-        if (event.getSource() == messagePane) {
-            setSelectedGradient(messagePane);
-            loadFXML("/fxml/message.fxml");
-        }
-        if (event.getSource() == marketPane) {
-            setSelectedGradient(marketPane);
-            loadFXML("/fxml/market.fxml");
-        }
-        if (event.getSource() == settingsIcon) {
-            loadFXML("/fxml/settings.fxml");
-        }
-        if (event.getSource() == userLabel) {
-            loadFXML("/fxml/profile.fxml");
-        }
+//        if (event.getSource() == profileIcon) {
+//            loadFXML("/fxml/profile.fxml");
+//        }
+//        if (event.getSource() == messagePane) {
+//            setSelectedGradient(messagePane);
+//            loadFXML("/fxml/message.fxml");
+//        }
+//        if (event.getSource() == marketPane) {
+//            setSelectedGradient(marketPane);
+//            loadFXML("/fxml/market.fxml");
+//        }
+//        if (event.getSource() == settingsIcon) {
+//            loadFXML("/fxml/settings.fxml");
+//        }
+//        if (event.getSource() == userLabel) {
+//            loadFXML("/fxml/profile.fxml");
+//        }
     }
 
     public void setSelectedGradient(Pane pane) {

@@ -1,95 +1,132 @@
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.SubScene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.ArcType;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class BuildController extends Controller implements EventHandler<MouseEvent> {
+public class BuildController extends Controller {
 
     @FXML
-    ScrollPane center_scrollPane;
+    AnchorPane anchorPane;
 
     @FXML
-    StackPane center_stackPane;
+    BorderPane borderPane;
 
     @FXML
-    AnchorPane module_pane;
+    Button circle, square, triangle, section;
 
-    @FXML
-    ListView module_list;
-
-    @FXML
-    VBox vbox;
+    SubScene subScene;
+    GridCanvas gridCanvas;
+    double relativeMouseX;
+    double relativeMouseY;
+    double relativeTranslateX;
+    double relativeTranslateY;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        center_stackPane.prefWidthProperty().bind(center_scrollPane.widthProperty());
-        center_stackPane.prefHeightProperty().bind(center_scrollPane.heightProperty());
-//        center_stackPane.setPrefWidth(center_scrollPane.getWidth());
-//        center_stackPane.setPrefHeight(center_scrollPane.getHeight());
-        DragResizer.makeResizable(module_pane, 5);
-//        DragResizer.makeResizable(module_list, 0);
-        setGridCanvas();
+        gridCanvas = new GridCanvas(900, 550);
+//        Group group = new Group(gridPane);
+        subScene = new SubScene(gridCanvas, 1200, 900);
+        anchorPane.getChildren().add(subScene);
+
+        subScene.widthProperty().bind(anchorPane.widthProperty());
+        subScene.heightProperty().bind(anchorPane.heightProperty());
+        gridCanvas.prefWidthProperty().bind(anchorPane.widthProperty());
+        gridCanvas.prefHeightProperty().bind(anchorPane.heightProperty());
     }
 
-    private void setGridCanvas() {
-        GridCanvas gridCanvas = new GridCanvas(center_scrollPane.getWidth(), center_scrollPane.getHeight());
-        center_stackPane.getChildren().add(gridCanvas);
-        center_stackPane.getChildren().get(0).setStyle("-fx-background-color: #3E3D3A;");
-
-//        center_scrollPane.widthProperty().addListener((observable, oldValue, newValue) -> {
-//            if (newValue.doubleValue() - oldValue.doubleValue() < 0)
-//                center_stackPane.setPrefWidth(center_stackPane.getWidth() + (oldValue.doubleValue() - newValue.doubleValue()));
-////            else center_stackPane.setPrefWidth(center_stackPane.getWidth() + (newValue.doubleValue() - oldValue.doubleValue()));
-//        });
-//
-//        center_scrollPane.heightProperty().addListener((observable, oldValue, newValue) -> {
-//            if (newValue.doubleValue() - oldValue.doubleValue() < 0)
-//                center_stackPane.setPrefHeight(center_stackPane.getHeight() + (oldValue.doubleValue() - newValue.doubleValue()));
-////            else center_stackPane.setPrefHeight(center_stackPane.getHeight() + (newValue.doubleValue() - oldValue.doubleValue()));
-//        });
-
-
-        Canvas canvas = new Canvas(300, 1000);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.setStroke(Color.BLACK);
-        gc.setFill(Color.WHITESMOKE);
-        gc.setLineWidth(0.1);
-
-        gc.beginPath();
-        gc.lineTo(200, 100);
-        gc.lineTo(200, 200);
-        gc.lineTo(100, 100);
-        gc.stroke();
-        gc.fill();
-
-        gc.fillOval(120, 220, 100, 100);
-//        gc.fillRect(120, 600, 100, 100);
-
-        gc.fillRect(120, 350, 100, 100);
-
-        gc.fillRoundRect(120, 500, 100, 100, 20, 20);
-
-
-        vbox.getChildren().add(canvas);
+    public void onClick(ActionEvent event) {
+        if (event.getSource() == circle)
+            drawCircle(gridCanvas);
+        if (event.getSource() == square)
+            drawRectangle(gridCanvas);
+        if (event.getSource() == triangle)
+            drawTriangle(gridCanvas);
+        if (event.getSource() == section)
+            createSection(gridCanvas);
     }
 
-    @Override
-    public void handle(MouseEvent event) {
+    public void drawCircle(GridCanvas gridCanvas) {
+        System.out.println("circle");
+        Circle circle = new Circle( 80, 80, 40);
+        circle.setStroke(Color.GOLD);
+        circle.setFill(Color.GOLD.deriveColor(1, 1, 1, 0.5));
+        addObjectEventHandler(circle);
+        gridCanvas.getChildren().addAll(circle);
+    }
 
+    public void drawRectangle(GridCanvas gridCanvas) {
+        System.out.println("rectangle");
+        Rectangle rectangle = new Rectangle(80,80);
+        rectangle.setTranslateX(80);
+        rectangle.setTranslateY(80);
+        rectangle.setStroke(Color.AQUA);
+        rectangle.setFill(Color.AQUA.deriveColor(1, 1, 1, 0.5));
+        addObjectEventHandler(rectangle);
+        gridCanvas.getChildren().addAll(rectangle);
+    }
+
+    public void drawTriangle(GridCanvas gridCanvas) {
+        System.out.println("triangle");
+        Polygon triangle = new Polygon();
+        triangle.getPoints().addAll(
+                160.0, 40.0,
+                120.0, 120.0,
+                200.0, 120.0);
+        triangle.setStroke(Color.GREEN);
+        triangle.setFill(Color.GREEN.deriveColor(1, 1, 1, 0.5));
+        addObjectEventHandler(triangle);
+        gridCanvas.getChildren().add(triangle);
+    }
+
+    public void createSection(GridCanvas gridCanvas) {
+
+    }
+
+    public void addObjectEventHandler(Node node) {
+        node.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+            if(!event.isPrimaryButtonDown())
+                return;
+
+            relativeMouseX = event.getSceneX();
+            relativeMouseY = event.getSceneY();
+
+            relativeTranslateX = ((Node) event.getSource()).getTranslateX();
+            relativeTranslateY = ((Node) event.getSource()).getTranslateY();
+        });
+
+        node.addEventFilter(MouseEvent.MOUSE_DRAGGED, event -> {
+            if(!event.isPrimaryButtonDown())
+                return;
+
+            double paneX = gridCanvas.getTranslateX();
+            double paneY = gridCanvas.getTranslateY();
+
+            double XBounds;
+            double YBounds;
+
+            Node eventNode = (Node) event.getSource();
+
+            if (gridCanvas.getLayoutX() >= 0) {
+                eventNode.setTranslateX(relativeTranslateX + ((event.getSceneX() - relativeMouseX)) );
+                eventNode.setTranslateY(relativeTranslateY + ((event.getSceneY() - relativeMouseY)) );
+                event.consume();
+            } else {
+                System.out.println("OUT OF BOUNDS");
+
+            }
+        });
     }
 }

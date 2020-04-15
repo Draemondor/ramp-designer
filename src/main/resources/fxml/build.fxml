@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -9,18 +9,10 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane styleClass="border-pane" stylesheets="@../css/build.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BuildController">
-   <center>
-      <ScrollPane fx:id="center_scrollPane" prefHeight="550.0" prefWidth="900.0" styleClass="root" stylesheets="@../css/build.css" BorderPane.alignment="CENTER">
-         <content>
-            <StackPane fx:id="center_stackPane" prefHeight="550.0" prefWidth="900.0" stylesheets="@../css/build.css" />
-         </content>
-      </ScrollPane>
-   </center>
+<BorderPane fx:id="borderPane" styleClass="border-pane" stylesheets="@../css/build.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BuildController">
    <left>
       <AnchorPane fx:id="module_pane" stylesheets="@../css/build.css" BorderPane.alignment="CENTER">
          <children>
@@ -41,7 +33,16 @@
                   </ImageView>
                </children>
             </Pane>
-            <VBox fx:id="vbox" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="50.0" />
+            <VBox fx:id="vbox" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="50.0">
+               <children>
+                  <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="triangle" layoutX="82.0" layoutY="136.0" mnemonicParsing="false" onAction="#onClick" prefWidth="100.0" text="triangle" />
+                      <Button fx:id="square" alignment="CENTER" layoutX="82.0" layoutY="14.0" mnemonicParsing="false" onAction="#onClick" prefWidth="100.0" text="square" textAlignment="CENTER" />
+                        <Button fx:id="circle" layoutX="82.0" layoutY="74.0" mnemonicParsing="false" onAction="#onClick" prefWidth="100.0" text="circle" />
+                     </children>
+                  </AnchorPane>
+               </children></VBox>
 <!--            <ListView fx:id="module_list" layoutX="15.0" layoutY="50.0" stylesheets="@../css/build.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="50.0" />-->
          </children>
       </AnchorPane>
@@ -53,4 +54,7 @@
          </padding>
       </HBox>
    </top>
+   <center>
+      <AnchorPane fx:id="anchorPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
 </BorderPane>
