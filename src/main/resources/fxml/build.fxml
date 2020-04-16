@@ -37,9 +37,9 @@
                <children>
                   <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="triangle" layoutX="82.0" layoutY="136.0" mnemonicParsing="false" onAction="#onClick" prefWidth="100.0" text="triangle" />
-                      <Button fx:id="square" alignment="CENTER" layoutX="82.0" layoutY="14.0" mnemonicParsing="false" onAction="#onClick" prefWidth="100.0" text="square" textAlignment="CENTER" />
-                        <Button fx:id="circle" layoutX="82.0" layoutY="74.0" mnemonicParsing="false" onAction="#onClick" prefWidth="100.0" text="circle" />
+                        <Button fx:id="triangle" layoutX="82.0" layoutY="136.0" mnemonicParsing="false" onAction="#onClick" prefWidth="100.0" text="module_3" />
+                      <Button fx:id="square" alignment="CENTER" layoutX="82.0" layoutY="14.0" mnemonicParsing="false" onAction="#onClick" prefWidth="100.0" text="module_1" textAlignment="CENTER" />
+                        <Button fx:id="circle" layoutX="82.0" layoutY="74.0" mnemonicParsing="false" onAction="#onClick" prefWidth="100.0" text="module_2" />
                      </children>
                   </AnchorPane>
                </children></VBox>

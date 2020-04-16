@@ -38,7 +38,7 @@
             </Label>
               </children>
           </AnchorPane>
-      <ScrollPane fitToHeight="true" fitToWidth="true" pannable="true" styleClass="root" stylesheets="@../css/new_project_form.css">
+      <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="root" stylesheets="@../css/new_project_form.css">
           <content>
               <VBox fx:id="root" styleClass="root" stylesheets="@../css/new_project_form.css">
                   <children>

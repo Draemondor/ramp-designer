@@ -1,0 +1,38 @@
+.root {
+    -fx-background-color: #494843;
+}
+
+.top_pane {
+    -fx-background-color: #494843;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #838383;
+}
+
+.scroll-pane {
+    -fx-background-color: #494843;
+    -fx-hbar-policy: never;
+    -fx-vbar-policy: never;
+}
+
+.build {
+    -fx-background-color: #19455D;
+    -fx-border-width: 1 1 1 1;
+    -fx-border-color: #838383;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}
+
+.build:hover {
+    -fx-background-color: #0B90B5;
+}
+
+.text-field {
+    -fx-font-size: 15;
+    -fx-control-inner-background: #3E3D3A;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-border-width: 1 1 1 1;
+    -fx-border-color: #838383;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}

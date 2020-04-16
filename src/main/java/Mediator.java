@@ -23,6 +23,7 @@ public class Mediator implements OnFXMLChangedListener {
 
     @Override
     public void onControllerLoadFXML(String FXML) {
+        System.out.println("onControllerLoadFXML");
         if (controllers.peek() instanceof MainController) {
             ((MainController) controllers.peek()).onControllerLoadFXML(FXML);
         }

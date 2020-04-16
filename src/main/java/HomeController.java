@@ -2,10 +2,13 @@ import List_Items.ProjectListItem;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -46,6 +49,11 @@ public class HomeController extends Controller implements OnFXMLChangedListener 
         projectObservableList.addAll(databaseManager.getAllProjects());
         listView.setItems(projectObservableList);
         listView.setCellFactory(projectListView -> new ProjectListCell());
+        listView.setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+                Mediator.getInstance().onControllerLoadFXML("/fxml/project_overview.fxml");
+            }
+        });
     }
 
     public void openNewProjectForm() {
@@ -62,7 +70,6 @@ public class HomeController extends Controller implements OnFXMLChangedListener 
     @Override
     public void onControllerLoadFXML(String FXML) {
         System.out.println("onControllerLoadFXML from HomeController");
-
     }
 
     public void onAction(ActionEvent actionEvent) {
