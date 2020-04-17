@@ -135,7 +135,7 @@ public class DatabaseManager {
     public void createDefaultTables() {
         /********** USERS TABLE **************/
 
-        String CREATE_USERS_TABLE = "CREATE TABLE IF NOT EXISTS \"users\" (\n" +
+        String USERS_TABLE = "CREATE TABLE IF NOT EXISTS \"users\" (\n" +
                 "\t\"user_id\"\tINTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n" +
                 "\t\"f_name\"\tVARCHAR(100) NOT NULL,\n" +
                 "\t\"l_name\"\tVARCHAR(100) NOT NULL,\n" +
@@ -145,11 +145,11 @@ public class DatabaseManager {
                 "\t\"role\"\tTINYINT DEFAULT 0,\n" +
                 "\t\"accnt_created\"\tDATE NOT NULL\n" +
                 ")";
-        createTable(CREATE_USERS_TABLE);
+        createTable(USERS_TABLE);
 
         /********** TEAMS TABLE **************/
 
-        String CREATE_TEAMS_TABLE = "CREATE TABLE IF NOT EXISTS \"teams\" (\n" +
+        String TEAMS_TABLE = "CREATE TABLE IF NOT EXISTS \"teams\" (\n" +
                 "\t\"team_id\"\tINTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n" +
                 "\t\"team_name\"\tVARCHAR(256) NOT NULL,\n" +
                 "\t\"team_color\"\tTINYINT DEFAULT 0,\n" +
@@ -157,11 +157,11 @@ public class DatabaseManager {
                 "\t\"date_created\"\tDATE NOT NULL,\n" +
                 "\t\"privacy_level\"\tTINYINT DEFAULT 0\n" +
                 ")";
-        createTable(CREATE_TEAMS_TABLE);
+        createTable(TEAMS_TABLE);
 
         /********** CUSTOMERS TABLE **************/
 
-        String CREATE_CUSTOMERS_TABLE = "CREATE TABLE IF NOT EXISTS \"customers\" (\n" +
+        String CUSTOMERS_TABLE = "CREATE TABLE IF NOT EXISTS \"customers\" (\n" +
                 "\t\"customer_id\"\tINTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n" +
                 "\t\"f_name\"\tVARCHAR(100) NOT NULL,\n" +
                 "\t\"l_name\"\tVARCHAR(100) NOT NULL,\n" +
@@ -173,11 +173,11 @@ public class DatabaseManager {
                 "\t\"city\"\tVARCHAR(256) NOT NULL,\n" +
                 "\t\"zip\"\tTINYINT NOT NULL\n" +
                 ")";
-        createTable(CREATE_CUSTOMERS_TABLE);
+        createTable(CUSTOMERS_TABLE);
 
         /********** PROJECTS TABLE **************/
 
-        String CREATE_PROJECTS_TABLE = "CREATE TABLE IF NOT EXISTS \"projects\" (\n" +
+        String PROJECTS_TABLE = "CREATE TABLE IF NOT EXISTS \"projects\" (\n" +
                 "\t\"project_id\"\tINTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n" +
                 "\t\"project_name\"\tVARCHAR(256) NOT NULL,\n" +
                 "\t\"start_date\"\tDATE,\n" +
@@ -190,29 +190,29 @@ public class DatabaseManager {
                 "\tFOREIGN KEY(\"customer\") REFERENCES \"customers\"(\"customer_id\"),\n" +
                 "\tFOREIGN KEY(\"team\") REFERENCES \"teams\"(\"team_id\")\n" +
                 ")";
-        createTable(CREATE_PROJECTS_TABLE);
+        createTable(PROJECTS_TABLE);
 
         /********** USER_TEAMS TABLE **************/
 
-        String CREATE_USER_TEAMS_TABLE = "CREATE TABLE IF NOT EXISTS \"user_teams\" (\n" +
+        String USER_TEAMS_TABLE = "CREATE TABLE IF NOT EXISTS \"user_teams\" (\n" +
                 "\t\"user_id\"\tINTEGER NOT NULL,\n" +
                 "\t\"team_id\"\tINTEGER NOT NULL,\n" +
                 "\tPRIMARY KEY(\"user_id\",\"team_id\"),\n" +
                 "\tFOREIGN KEY(\"team_id\") REFERENCES \"teams\"(\"team_id\") ON DELETE CASCADE,\n" +
                 "\tFOREIGN KEY(\"user_id\") REFERENCES \"users\"(\"user_id\") ON DELETE CASCADE\n" +
                 ")";
-        createTable(CREATE_USER_TEAMS_TABLE);
+        createTable(USER_TEAMS_TABLE);
 
         /********** USER_PROJECTS TABLE **************/
 
-        String CREATE_USER_PROJECTS_TABLE = "CREATE TABLE IF NOT EXISTS \"user_projects\" (\n" +
+        String USER_PROJECTS_TABLE = "CREATE TABLE IF NOT EXISTS \"user_projects\" (\n" +
                 "\t\"user_id\"\tINTEGER NOT NULL,\n" +
                 "\t\"project_id\"\tINTEGER NOT NULL,\n" +
                 "\tFOREIGN KEY(\"user_id\") REFERENCES \"users\"(\"user_id\") ON DELETE CASCADE,\n" +
                 "\tPRIMARY KEY(\"user_id\",\"project_id\"),\n" +
                 "\tFOREIGN KEY(\"project_id\") REFERENCES \"projects\"(\"project_id\") ON DELETE CASCADE\n" +
                 ")";
-        createTable(CREATE_USER_PROJECTS_TABLE);
+        createTable(USER_PROJECTS_TABLE);
 
     }
 

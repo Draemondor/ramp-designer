@@ -18,6 +18,15 @@
    <children>
       <HBox prefHeight="75.0" prefWidth="200.0" styleClass="top_pane" stylesheets="@../css/project_overview.css">
          <children>
+            <AnchorPane>
+               <children>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="35.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0">
+                     <image>
+                        <Image url="@../icons/back_arrow.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
             <AnchorPane HBox.hgrow="ALWAYS">
                <children>
                   <Label layoutX="34.0" layoutY="19.0" stylesheets="@../css/list_items.css" text="Project Name" textFill="WHITE" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="35.0">
@@ -168,6 +177,9 @@
                                  <font>
                                     <Font size="13.0" />
                                  </font>
+                                 <padding>
+                                    <Insets bottom="35.0" left="35.0" right="35.0" top="35.0" />
+                                 </padding>
                               </Label>
                            </children>
                         </AnchorPane>
@@ -192,6 +204,9 @@
                                  <font>
                                     <Font size="13.0" />
                                  </font>
+                                 <padding>
+                                    <Insets bottom="35.0" left="35.0" right="35.0" top="35.0" />
+                                 </padding>
                               </Label>
                            </children>
                         </AnchorPane>
@@ -216,6 +231,9 @@
                                  <font>
                                     <Font size="13.0" />
                                  </font>
+                                 <padding>
+                                    <Insets bottom="35.0" left="35.0" right="35.0" top="35.0" />
+                                 </padding>
                               </Label>
                            </children>
                         </AnchorPane>

@@ -3,8 +3,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.SubScene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -29,6 +27,7 @@ public class BuildController extends Controller {
 
     SubScene subScene;
     GridCanvas gridCanvas;
+
     double relativeMouseX;
     double relativeMouseY;
     double relativeTranslateX;
@@ -37,7 +36,6 @@ public class BuildController extends Controller {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         gridCanvas = new GridCanvas(900, 550);
-//        Group group = new Group(gridPane);
         subScene = new SubScene(gridCanvas, 1200, 900);
         anchorPane.getChildren().add(subScene);
 
@@ -59,7 +57,6 @@ public class BuildController extends Controller {
     }
 
     public void drawCircle(GridCanvas gridCanvas) {
-        System.out.println("circle");
         Circle circle = new Circle( 80, 80, 40);
         circle.setStroke(Color.GOLD);
         circle.setFill(Color.GOLD.deriveColor(1, 1, 1, 0.5));
@@ -68,7 +65,6 @@ public class BuildController extends Controller {
     }
 
     public void drawRectangle(GridCanvas gridCanvas) {
-        System.out.println("rectangle");
         Rectangle rectangle = new Rectangle(80,80);
         rectangle.setTranslateX(80);
         rectangle.setTranslateY(80);
@@ -79,7 +75,6 @@ public class BuildController extends Controller {
     }
 
     public void drawTriangle(GridCanvas gridCanvas) {
-        System.out.println("triangle");
         Polygon triangle = new Polygon();
         triangle.getPoints().addAll(
                 160.0, 40.0,
@@ -111,22 +106,14 @@ public class BuildController extends Controller {
             if(!event.isPrimaryButtonDown())
                 return;
 
-            double paneX = gridCanvas.getTranslateX();
-            double paneY = gridCanvas.getTranslateY();
-
-            double XBounds;
-            double YBounds;
-
             Node eventNode = (Node) event.getSource();
 
             if (gridCanvas.getLayoutX() >= 0) {
                 eventNode.setTranslateX(relativeTranslateX + ((event.getSceneX() - relativeMouseX)) );
                 eventNode.setTranslateY(relativeTranslateY + ((event.getSceneY() - relativeMouseY)) );
                 event.consume();
-            } else {
-                System.out.println("OUT OF BOUNDS");
+            } else System.out.println("OUT OF BOUNDS");
 
-            }
         });
     }
 }
