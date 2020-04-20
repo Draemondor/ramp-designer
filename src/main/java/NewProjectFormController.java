@@ -64,6 +64,7 @@ public class NewProjectFormController extends Controller  {
         getDatabaseInfo();
     }
 
+    /*** retrieve data to fill in selection nodes such as the manager and teams combobox ***/
     public void getDatabaseInfo() {
         databaseManager = DatabaseManager.getInstance();
         managers = FXCollections.observableArrayList();
@@ -195,6 +196,7 @@ public class NewProjectFormController extends Controller  {
     }
 
     public void displayNewTeamForm() {
+        /*** set this controller as the parent before switching views ***/
         Mediator.getInstance().setParentController(this);
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/new_team_form.fxml"));

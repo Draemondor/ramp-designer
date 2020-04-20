@@ -3,6 +3,10 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
+/*** Custom canvas class which inherits from the Pane node in order to bind certain properties for scaling as well as
+     draw and render multiple objects including the grid editor to a single Node.
+ ***/
+
 public class GridCanvas extends Pane {
     private Canvas canvas;
     private GraphicsContext gc;

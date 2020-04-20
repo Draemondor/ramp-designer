@@ -114,6 +114,7 @@ public class NewTeamFormController extends Controller implements OnFXMLChangedLi
         }
     }
 
+    /*** Custom recycled UI listCell for the listView to populate users ***/
     class MemberAddListCell extends ListCell<MemberListItem> {
 
         @FXML

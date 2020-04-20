@@ -36,7 +36,7 @@
 }
 
 .add_members_pane {
-    -fx-background-color: #19455D;
+        -fx-background-color: #19455D;
     -fx-border-width: 1 1 1 1;
     -fx-border-color: #838383;
     -fx-background-radius: 5;

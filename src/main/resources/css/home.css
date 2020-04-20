@@ -53,8 +53,6 @@
     -fx-padding: 0;
 }
 
-
-
 .list-view .list-cell:odd {
     -fx-background-color: #41403D;
     -fx-font-size: 15;

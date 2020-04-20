@@ -28,6 +28,9 @@ public class BuildController extends Controller {
     SubScene subScene;
     GridCanvas gridCanvas;
 
+    /***  Positioning variables used to move items around the screen relative to the mouse position and current Node translation.
+          Used with the EventHandlers.
+     ***/
     double relativeMouseX;
     double relativeMouseY;
     double relativeTranslateX;
@@ -39,6 +42,7 @@ public class BuildController extends Controller {
         subScene = new SubScene(gridCanvas, 1200, 900);
         anchorPane.getChildren().add(subScene);
 
+        /*** Binding of the two Node's width and height property for automatic scaling ***/
         subScene.widthProperty().bind(anchorPane.widthProperty());
         subScene.heightProperty().bind(anchorPane.heightProperty());
         gridCanvas.prefWidthProperty().bind(anchorPane.widthProperty());
@@ -90,16 +94,20 @@ public class BuildController extends Controller {
 
     }
 
+    /*** Mouse drag event handler for moving objects/modules around the editor ***/
     public void addObjectEventHandler(Node node) {
         node.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
             if(!event.isPrimaryButtonDown())
                 return;
 
+            /*** Current mouse position relative to the parent scene ***/
             relativeMouseX = event.getSceneX();
             relativeMouseY = event.getSceneY();
 
+            /*** Nodes translation position ***/
             relativeTranslateX = ((Node) event.getSource()).getTranslateX();
             relativeTranslateY = ((Node) event.getSource()).getTranslateY();
+
         });
 
         node.addEventFilter(MouseEvent.MOUSE_DRAGGED, event -> {
@@ -109,6 +117,7 @@ public class BuildController extends Controller {
             Node eventNode = (Node) event.getSource();
 
             if (gridCanvas.getLayoutX() >= 0) {
+                /*** On drag, the nodes new translation position ***/
                 eventNode.setTranslateX(relativeTranslateX + ((event.getSceneX() - relativeMouseX)) );
                 eventNode.setTranslateY(relativeTranslateY + ((event.getSceneY() - relativeMouseY)) );
                 event.consume();

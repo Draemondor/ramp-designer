@@ -10,6 +10,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/*** this class handles all database related actions. ***/
+
 public class DatabaseManager {
     private static DatabaseManager manager = null;
 
@@ -41,9 +43,14 @@ public class DatabaseManager {
                 PreparedStatement preparedStatement = connection.prepareStatement(emailCheck);
                 preparedStatement.setString(1, email);
                 ResultSet resultSet = preparedStatement.executeQuery();
-                if (resultSet.next())
+                if (resultSet.next()) {
+                    connection.close();
                     return true;
-                else return false;
+                }
+                else {
+                    connection.close();
+                    return false;
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
                 return true;
@@ -79,10 +86,11 @@ public class DatabaseManager {
                     User user = new User(fName, lName, mEmail, hash, phone, time);
                     user.setUID(resultSet.getInt(1));
                     connection.close();
-
                     return user;
-
-                } else return null;
+                } else {
+                    connection.close();
+                    return null;
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
                 return null;
@@ -113,7 +121,7 @@ public class DatabaseManager {
                         connection.close();
                         return currentUser;
                     }
-                }
+                }  connection.close();
 
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -133,6 +141,7 @@ public class DatabaseManager {
      ***************/
 
     public void createDefaultTables() {
+
         /********** USERS TABLE **************/
 
         String USERS_TABLE = "CREATE TABLE IF NOT EXISTS \"users\" (\n" +
@@ -228,7 +237,7 @@ public class DatabaseManager {
         }
     }
 
-    /********** Retrieve all projects for home screen list **************/
+    /********** Retrieve all projects for home screen listView **************/
 
     public List<ProjectListItem> getAllProjects() {
         Connection connection = getConnection();

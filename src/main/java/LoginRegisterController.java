@@ -74,6 +74,7 @@ public class LoginRegisterController extends Controller {
             return;
         }
 
+        /*** verify login credentials in database and return user if succeeded ***/
         User currentUser = databaseManager.loginCredentialsVerified(email, password);
         if (currentUser != null)
             loadUserSession(currentUser);
@@ -154,6 +155,7 @@ public class LoginRegisterController extends Controller {
     }
 
     public void loadUserSession(User currentUser) {
+        /*** set the current user for this logged in session ***/
         Mediator.getInstance().setCurrentUser(currentUser);
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/main.fxml"));

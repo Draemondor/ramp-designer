@@ -46,6 +46,7 @@ public class HomeController extends Controller implements OnFXMLChangedListener 
         databaseManager = DatabaseManager.getInstance();
         projectObservableList = FXCollections.observableArrayList();
 
+        /*** retrieve projects from the database and populate the listView. ***/
         projectObservableList.addAll(databaseManager.getAllProjects());
         listView.setItems(projectObservableList);
         listView.setCellFactory(projectListView -> new ProjectListCell());
@@ -76,7 +77,8 @@ public class HomeController extends Controller implements OnFXMLChangedListener 
 
     }
 
-    class ProjectListCell extends ListCell<ProjectListItem> {
+    /*** Custom recycled UI listCell for the listView to populate projects ***/
+    static class ProjectListCell extends ListCell<ProjectListItem> {
 
         @FXML
         Label name, start_date, customer, status, note, team;

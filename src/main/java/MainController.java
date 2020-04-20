@@ -18,6 +18,8 @@ import java.util.ResourceBundle;
 
 public class MainController extends Controller implements EventHandler<MouseEvent>, OnFXMLChangedListener {
 
+    /*** main navigation controller for all side and top nav items ***/
+
     @FXML
     VBox root;
 
@@ -40,6 +42,7 @@ public class MainController extends Controller implements EventHandler<MouseEven
     public void initialize(URL location, ResourceBundle resources) {
         sideNavList = FXCollections.observableArrayList(homePane, buildPane, messagePane, marketPane);
 
+        /*** set this controller as the parent for reference and view loading ***/
         Mediator.getInstance().setParentController(this);
 
         this.currentUser = Mediator.getInstance().getCurrentUser();

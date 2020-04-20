@@ -2,6 +2,13 @@ import Entities.Project;
 import Entities.Team;
 import Entities.User;
 
+/*** This singleton class is used to set application variables and pass information onto other controllers
+     via the Controller object stack. It essentially lets the current view know which controller
+     created it allowing for backtracking to the previous controller with possible important data.
+     Since certain views can be created and inflated by multiple controllers, it is important to know
+     which controller to go back to on various actions.
+ ***/
+
 public class Mediator implements OnFXMLChangedListener {
 
     private static Mediator mediator = null;
@@ -69,7 +76,7 @@ public class Mediator implements OnFXMLChangedListener {
     }
 
 
-    /******** stack for parent controller ********/
+    /******** stack for parent controller. Could potentially be used for other objects as well ********/
     static class MediatorStack<T> {
         private Node<T> top;
 

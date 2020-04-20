@@ -2,6 +2,8 @@ import javafx.scene.Cursor;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 
+/*** utility class that enables a node's width to be be resized on edge drag ***/
+
 public class DragResizer {
 
     private int RESIZE_MARGIN = 5;
