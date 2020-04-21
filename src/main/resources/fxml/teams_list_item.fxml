@@ -23,38 +23,41 @@
     </rowConstraints>
     <children>
         <Label fx:id="name" text="Team Name" textFill="WHITE" GridPane.rowIndex="1">
-            <padding>
-                <Insets left="5.0" />
-            </padding>
          <font>
             <Font size="15.0" />
-         </font></Label>
+         </font>
+         <padding>
+            <Insets left="5.0" />
+         </padding></Label>
         <Label fx:id="numProjects" text="3" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <GridPane.margin>
                 <Insets left="5.0" />
             </GridPane.margin>
          <font>
             <Font size="15.0" />
-         </font></Label>
-        <Label fx:id="numMembers" text="4" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
-            <padding>
-                <Insets left="5.0" />
-            </padding>
-         <font>
-            <Font size="15.0" />
-         </font></Label>
-      <AnchorPane GridPane.columnIndex="4" GridPane.rowIndex="1">
-         <children>
-            <Button fx:id="leaveTeam" layoutX="12.0" layoutY="12.0" mnemonicParsing="false" prefWidth="75.0" styleClass="remove-button" stylesheets="@../css/list_items.css" text="Leave" />
-         </children>
-      </AnchorPane>
-      <Label fx:id="privacy" layoutX="210.0" layoutY="24.0" text="1" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
+         </font>
          <padding>
-            <Insets left="5.0" />
-         </padding>
+            <Insets right="30.0" />
+         </padding></Label>
+        <Label fx:id="numMembers" text="4" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <font>
             <Font size="15.0" />
          </font>
+         <padding>
+            <Insets left="5.0" />
+         </padding></Label>
+      <AnchorPane GridPane.columnIndex="4" GridPane.rowIndex="1">
+         <children>
+            <Button fx:id="leaveTeam" layoutY="12.0" mnemonicParsing="false" prefWidth="75.0" styleClass="remove-button" stylesheets="@../css/list_items.css" text="Leave" AnchorPane.rightAnchor="50.0" />
+         </children>
+      </AnchorPane>
+      <Label fx:id="privacy" layoutX="210.0" layoutY="24.0" text="Private" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
+         <font>
+            <Font size="15.0" />
+         </font>
+         <padding>
+            <Insets left="5.0" />
+         </padding>
       </Label>
     </children>
 </GridPane>

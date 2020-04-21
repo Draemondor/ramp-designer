@@ -8,6 +8,15 @@
     -fx-border-color: #838383;
 }
 
+.back-btn {
+    -fx-border-width: 0 1 0 0;
+    -fx-border-color: #dcdcdc;
+}
+
+.back-btn:hover {
+    -fx-effect: innershadow(gaussian, #0B90B5, 9, 1, 1, 1);
+}
+
 .scroll-pane {
     -fx-background-color: #494843;
     -fx-hbar-policy: never;

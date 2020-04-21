@@ -24,7 +24,7 @@
                <children>
                   <AnchorPane HBox.hgrow="ALWAYS">
                      <children>
-                        <ImageView fx:id="backBtn" fitHeight="30.0" fitWidth="30.0" layoutX="44.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="44.0" AnchorPane.topAnchor="45.0">
+                        <ImageView fx:id="backBtn" fitHeight="30.0" fitWidth="30.0" layoutX="44.0" layoutY="48.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true" styleClass="back-btn" AnchorPane.leftAnchor="44.0" AnchorPane.topAnchor="45.0">
                            <image>
                               <Image url="@../icons/back_arrow.png" />
                            </image>
@@ -42,7 +42,7 @@
                   </AnchorPane>
                   <AnchorPane layoutX="210.0" layoutY="10.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button fx:id="newTeamBtn" layoutX="252.0" layoutY="55.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="125.0" styleClass="_button" stylesheets="@../css/home.css" text="New Team" textFill="WHITE" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="45.0">
+                        <Button fx:id="newTeamBtn" layoutX="252.0" layoutY="55.0" mnemonicParsing="false" onAction="#onNewTeam" prefHeight="35.0" prefWidth="125.0" styleClass="_button" stylesheets="@../css/home.css" text="New Team" textFill="WHITE" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="45.0">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
@@ -53,11 +53,11 @@
             </HBox>
             <GridPane stylesheets="@../css/home.css">
                <columnConstraints>
-                  <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints vgrow="ALWAYS" />
@@ -104,24 +104,20 @@
                   <Insets left="35.0" right="35.0" />
                </VBox.margin>
                <padding>
-                  <Insets left="10.0" right="22.0" />
+                  <Insets left="10.0" right="25.0" />
                </padding>
             </GridPane>
          </children>
       </VBox>
    </top>
    <center>
-      <VBox fx:id="items" stylesheets="@../css/home.css" BorderPane.alignment="CENTER">
+      <AnchorPane style="-fx-background-color: #41403D;" stylesheets="@../css/home.css">
          <children>
-            <AnchorPane style="-fx-background-color: #41403D;" stylesheets="@../css/home.css" VBox.vgrow="ALWAYS">
-               <children>
-                  <ListView fx:id="listView" stylesheets="@../css/home.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-               </children>
-            </AnchorPane>
+            <ListView fx:id="listView" stylesheets="@../css/home.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children>
          <BorderPane.margin>
             <Insets bottom="35.0" left="35.0" right="35.0" />
          </BorderPane.margin>
-      </VBox>
+      </AnchorPane>
    </center>
 </BorderPane>

@@ -6,11 +6,16 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -49,6 +54,37 @@ public class TeamsController extends Controller {
 //                Mediator.getInstance().onControllerLoadFXML("/fxml/project_overview.fxml");
 //            }
 //        });
+    }
+
+    public void onClick(MouseEvent event) {
+        if (event.getSource() == backBtn)
+            Mediator.getInstance().onControllerLoadFXML("/fxml/home.fxml");
+    }
+
+    public void displayNewTeamForm() {
+        /*** set this controller as the parent before switching views ***/
+        Mediator.getInstance().setParentController(this);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/new_team_form.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.setOnCloseRequest(event -> Mediator.getInstance().removeParentController());
+
+            Stage parent = (Stage) newTeamBtn.getScene().getWindow();
+            stage.initOwner(parent);
+            stage.initModality(Modality.APPLICATION_MODAL);
+
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void onNewTeam(ActionEvent actionEvent) {
+        displayNewTeamForm();
     }
 
     /*** Custom recycled UI listCell for the listView to populate the users teams ***/
