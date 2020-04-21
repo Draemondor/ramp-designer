@@ -4,6 +4,7 @@ import Entities.Team;
 import Entities.User;
 import List_Items.MemberListItem;
 import List_Items.ProjectListItem;
+import List_Items.TeamListItem;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.*;
@@ -388,7 +389,7 @@ public class DatabaseManager {
 
     /********** Retrieve teams for combobox selection **************/
 
-    public List<Team> getTeams() {
+    public List<Team> getAllTeams() {
         Connection connection = getConnection();
         List<Team> teams = new ArrayList<>();
         String query = "SELECT * FROM teams";
@@ -404,6 +405,35 @@ public class DatabaseManager {
                             rs.getInt("privacy_level"),
                             rs.getString("team_name"),
                             rs.getString("date_created")
+                    );
+                    teams.add(team);
+                }
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return teams;
+    }
+
+    /********** Retrieve teams for listView **************/
+
+    public List<TeamListItem> getUserTeams() {
+        Connection connection = getConnection();
+        List<TeamListItem> teams = new ArrayList<>();
+        /*** This query needs to retrieve team_id, the # of members in a team, the # of projects a team is working on, and the privacy level of the team.
+             We will need to join the projects table as well in order to get the # of projects a team is working on.
+         ***/
+        String query = "SELECT * FROM teams t JOIN user_teams ut ON t.team_id = ut.team_id JOIN users u ON ut.user_id = u.user_id WHERE ut.user_id = ?";
+        if (connection != null) {
+            try {
+                PreparedStatement ps = connection.prepareStatement(query);
+                ps.setInt(1, Mediator.getInstance().getCurrentUser().getUID());
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    TeamListItem team = new TeamListItem(
+                            rs.getInt("team_id"),
+                            rs.getString("team_name")
                     );
                     teams.add(team);
                 }

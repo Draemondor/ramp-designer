@@ -73,8 +73,10 @@ public class HomeController extends Controller implements OnFXMLChangedListener 
         System.out.println("onControllerLoadFXML from HomeController");
     }
 
-    public void onAction(ActionEvent actionEvent) {
-
+    public void onAction(ActionEvent event) {
+        if (event.getSource() == teamsBtn) {
+            Mediator.getInstance().onControllerLoadFXML("/fxml/teams.fxml");
+        }
     }
 
     /*** Custom recycled UI listCell for the listView to populate projects ***/

@@ -2,8 +2,6 @@ import Entities.Customer;
 import Entities.Project;
 import Entities.Team;
 import Entities.User;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -73,7 +71,7 @@ public class NewProjectFormController extends Controller  {
         managers.addAll(databaseManager.getManagers());
         project_manager.setItems(managers);
 
-        teams.addAll(databaseManager.getTeams());
+        teams.addAll(databaseManager.getAllTeams());
         existing_team.setItems(teams);
     }
 

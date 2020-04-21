@@ -29,7 +29,7 @@
             </AnchorPane>
             <AnchorPane HBox.hgrow="ALWAYS">
                <children>
-                  <Label layoutX="34.0" layoutY="19.0" stylesheets="@../css/list_items.css" text="Project Name" textFill="WHITE" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="35.0">
+                  <Label layoutX="34.0" layoutY="19.0" stylesheets="@../css/list_items.css" text="Project: SHSU" textFill="WHITE" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="35.0">
                      <padding>
                         <Insets bottom="6.0" left="8.0" right="8.0" top="6.0" />
                      </padding>

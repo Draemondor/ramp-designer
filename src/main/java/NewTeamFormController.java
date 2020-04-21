@@ -159,8 +159,8 @@ public class NewTeamFormController extends Controller implements OnFXMLChangedLi
                 setText(null);
                 setGraphic(gridPane);
 
-                add_user.setOnAction(eventEventHandler);
-                remove_user.setOnAction(eventEventHandler);
+                add_user.setOnAction(eventHandler);
+                remove_user.setOnAction(eventHandler);
 
             }
         }
@@ -170,7 +170,7 @@ public class NewTeamFormController extends Controller implements OnFXMLChangedLi
             else add_user.toFront();
         }
 
-        EventHandler<ActionEvent> eventEventHandler = new EventHandler<>() {
+        EventHandler<ActionEvent> eventHandler = new EventHandler<>() {
             @Override
             public void handle(ActionEvent event) {
                 if (event.getSource() == add_user) {
