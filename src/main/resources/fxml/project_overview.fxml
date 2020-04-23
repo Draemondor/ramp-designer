@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
@@ -10,6 +11,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -41,19 +43,28 @@
             </AnchorPane>
             <AnchorPane layoutX="10.0" layoutY="10.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Label fx:id="status" layoutX="253.0" layoutY="41.0" styleClass="IN-PLANNING" stylesheets="@../css/list_items.css" text="IN PLANNING" textFill="WHITE" AnchorPane.rightAnchor="120.0">
+                  <Button fx:id="saveBtn" layoutX="487.0" layoutY="41.0" mnemonicParsing="false" onAction="#onClick" prefHeight="35.0" prefWidth="125.0" styleClass="_button" stylesheets="@../css/home.css" text="Save Changes" textFill="WHITE" AnchorPane.rightAnchor="35.0">
                      <font>
-                        <Font size="15.0" />
+                        <Font name="System Bold" size="15.0" />
                      </font>
-                     <padding>
-                        <Insets bottom="6.0" left="8.0" right="8.0" top="6.0" />
-                     </padding>
-                  </Label>
-                  <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="377.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
-                     <image>
-                        <Image url="@../icons/arrow-217-24.png" />
-                     </image>
-                  </ImageView>
+                  </Button>
+                  <Pane fx:id="statusPane" layoutX="216.0" layoutY="41.0" onMouseClicked="#onClick" AnchorPane.rightAnchor="250.0">
+                     <children>
+                        <Label fx:id="status" styleClass="IN-PLANNING" stylesheets="@../css/list_items.css" text="IN PLANNING" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="6.0" left="8.0" right="8.0" top="6.0" />
+                           </padding>
+                        </Label>
+                        <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="121.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/arrow-217-24.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
                </children>
             </AnchorPane>
          </children>

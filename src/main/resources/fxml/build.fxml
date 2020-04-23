@@ -2,59 +2,169 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="borderPane" styleClass="border-pane" stylesheets="@../css/build.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BuildController">
-   <left>
-      <AnchorPane fx:id="module_pane" stylesheets="@../css/build.css" BorderPane.alignment="CENTER">
-         <children>
-            <TextField fx:id="searchField" layoutX="14.0" layoutY="17.0" prefHeight="35.0" prefWidth="230.0" promptText="Search..." stylesheets="@../css/build.css" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="38.0" AnchorPane.topAnchor="0.0">
-               <font>
-                  <Font size="15.0" />
-               </font>
-               <padding>
-                  <Insets left="10.0" right="5.0" />
-               </padding>
-            </TextField>
-            <Pane layoutX="243.0" layoutY="15.0" prefHeight="35.0" prefWidth="35.0" styleClass="search_bar_btn" stylesheets="@../css/build.css" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="9.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/search.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Pane>
-            <VBox fx:id="vbox" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="50.0">
-               <children>
-                  <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <Button fx:id="triangle" layoutX="82.0" layoutY="136.0" mnemonicParsing="false" onAction="#onClick" prefWidth="100.0" text="module_3" />
-                      <Button fx:id="square" alignment="CENTER" layoutX="82.0" layoutY="14.0" mnemonicParsing="false" onAction="#onClick" prefWidth="100.0" text="module_1" textAlignment="CENTER" />
-                        <Button fx:id="circle" layoutX="82.0" layoutY="74.0" mnemonicParsing="false" onAction="#onClick" prefWidth="100.0" text="module_2" />
-                     </children>
-                  </AnchorPane>
-               </children></VBox>
-<!--            <ListView fx:id="module_list" layoutX="15.0" layoutY="50.0" stylesheets="@../css/build.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="50.0" />-->
-         </children>
-      </AnchorPane>
-   </left>
-   <top>
-      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <padding>
-            <Insets bottom="20.0" top="20.0" />
-         </padding>
-      </HBox>
-   </top>
-   <center>
-      <AnchorPane fx:id="anchorPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-   </center>
+<BorderPane fx:id="borderPane" prefHeight="550.0" prefWidth="900.0" styleClass="border-pane" stylesheets="@../css/build.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BuildController">
+    <top>
+        <HBox prefHeight="100.0" styleClass="top-pane" stylesheets="@../css/build.css" BorderPane.alignment="CENTER">
+            <children>
+                <AnchorPane>
+                    <children>
+                        <ImageView fx:id="back" fitHeight="35.0" fitWidth="35.0" layoutX="46.0" layoutY="33.0" onMouseClicked="#refreshView" pickOnBounds="true" preserveRatio="true" styleClass="nav-buttons" AnchorPane.leftAnchor="46.0">
+                            <image>
+                                <Image url="@../icons/back_arrow.png" />
+                            </image>
+                        </ImageView>
+                        <ImageView fx:id="forward" fitHeight="35.0" fitWidth="35.0" layoutX="115.0" layoutY="33.0" onMouseClicked="#refreshView" pickOnBounds="true" preserveRatio="true" styleClass="nav-buttons" AnchorPane.leftAnchor="115.0">
+                            <image>
+                                <Image url="@../icons/forward.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </AnchorPane>
+                <AnchorPane>
+                    <children>
+                        <GridPane hgap="20.0" vgap="5.0" AnchorPane.leftAnchor="220.0" AnchorPane.topAnchor="15.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints />
+                                <RowConstraints />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                                <RowConstraints />
+                            </rowConstraints>
+                            <children>
+                                <ToggleButton fx:id="line" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Line">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </ToggleButton>
+                                <ToggleButton disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                <ToggleButton disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="2" />
+                                <ToggleButton disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                <ToggleButton disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="3" />
+                                <ToggleButton disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="1" />
+                                <ToggleButton disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <ToggleButton fx:id="point" disable="true" layoutX="10.0" layoutY="50.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Point" GridPane.rowIndex="2">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </ToggleButton>
+                            </children>
+                        </GridPane>
+                        <TextField layoutX="71.0" layoutY="13.0" onAction="#onEnter" prefHeight="30.0" prefWidth="80.0" AnchorPane.leftAnchor="71.0" fx:id="x">
+                            <font>
+                                <Font name="System Bold" size="15.0" />
+                            </font>
+                        </TextField>
+                        <TextField fx:id="y" layoutX="71.0" layoutY="56.0" onAction="#onEnter" prefHeight="30.0" prefWidth="80.0" AnchorPane.leftAnchor="71.0">
+                            <font>
+                                <Font name="System Bold" size="15.0" />
+                            </font>
+                        </TextField>
+                        <Label layoutX="19.0" layoutY="16.0" text="X:" textFill="WHITE" AnchorPane.leftAnchor="50.0">
+                            <font>
+                                <Font name="System Bold" size="17.0" />
+                            </font>
+                            <padding>
+                                <Insets right="5.0" />
+                            </padding>
+                        </Label>
+                        <Label layoutX="19.0" layoutY="59.0" text="Y:" textFill="WHITE" AnchorPane.leftAnchor="50.0">
+                            <font>
+                                <Font name="System Bold" size="17.0" />
+                            </font>
+                            <padding>
+                                <Insets right="5.0" />
+                            </padding>
+                        </Label>
+                        <ImageView fx:id="refresh" fitHeight="30.0" fitWidth="30.0" layoutX="166.0" layoutY="14.0" onMouseClicked="#refreshView" pickOnBounds="true" preserveRatio="true" styleClass="refresh">
+                            <image>
+                                <Image url="@../icons/refresh.png" />
+                            </image>
+                        </ImageView>
+                        <ImageView fx:id="delete" fitHeight="30.0" fitWidth="30.0" layoutX="166.0" layoutY="57.0" onMouseClicked="#onAltAction" pickOnBounds="true" preserveRatio="true" styleClass="delete">
+                            <image>
+                                <Image url="@../icons/delete.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </AnchorPane>
+            </children>
+        </HBox>
+    </top>
+    <center>
+        <AnchorPane fx:id="anchorPane" BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets />
+            </BorderPane.margin>
+        </AnchorPane>
+    </center>
+    <left>
+        <AnchorPane prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+                <Label layoutX="11.0" layoutY="11.0" text="Modules" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0">
+                    <font>
+                        <Font name="System Bold" size="17.0" />
+                    </font>
+                    <padding>
+                        <Insets right="5.0" />
+                    </padding>
+                </Label>
+                <GridPane layoutX="50.0" layoutY="66.0" vgap="20.0" AnchorPane.topAnchor="50.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Button fx:id="module" mnemonicParsing="false" onAction="#onClick" prefHeight="30.0" prefWidth="100.0" text="Module">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="square" alignment="CENTER" mnemonicParsing="false" onAction="#onClick" prefHeight="30.0" prefWidth="100.0" text="Square" textAlignment="CENTER" GridPane.rowIndex="1">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="circle" mnemonicParsing="false" onAction="#onClick" prefHeight="30.0" prefWidth="100.0" text="Circle" GridPane.rowIndex="2">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="triangle" mnemonicParsing="false" onAction="#onClick" prefHeight="30.0" prefWidth="100.0" text="Triangle" GridPane.rowIndex="3">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </GridPane>
+                <Button fx:id="clear" layoutX="50.0" layoutY="404.0" mnemonicParsing="false" onAction="#onClick" prefHeight="30.0" prefWidth="100.0" styleClass="clear-button" stylesheets="@../css/build.css" text="Clear" AnchorPane.bottomAnchor="15.0">
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                </Button>
+            </children>
+        </AnchorPane>
+    </left>
 </BorderPane>

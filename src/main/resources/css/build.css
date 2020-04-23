@@ -3,6 +3,11 @@
     -fx-faint-focus-color: transparent;
 }
 
+.top-pane {
+    -fx-border-width: 0 0 0.1 0;
+    -fx-border-color: #838383;
+}
+
 .border-pane {
     -fx-background-color: #494843;
 }
@@ -12,56 +17,51 @@
     -fx-faint-focus-color: transparent;
 }
 
-.search_bar_btn {
-    -fx-background-color: #636363;
-    -fx-background-radius: 0 2 2 0;
+.button {
+    -fx-background-color: #0B90B5;
+    -fx-text-fill: #ffffff;
 }
 
-.search_bar_btn:hover {
+.button:hover {
     -fx-background-color: #3DAEE9;
 }
 
-.expand_right {
-    -fx-effect: innershadow(gaussian, #FFA500, 7, 1, 1, 1);
+.toggle-button {
+    -fx-background-color: #636363;
+    -fx-text-fill: #ffffff;
 }
 
-.list-view {
-    -fx-background-color: transparent;
+.toggle-button:hover {
+    -fx-background-color: #838383;
 }
 
-.list-cell {
-    -fx-background-color: transparent;
+.toggle-button:selected {
+    -fx-background-color: #71D672;
+    -fx-text-fill: #ffffff;
 }
 
-.list-view {
-    -fx-selection-bar:#0B90B5;
-    -fx-background-color: #636363, -fx-control-inner-background;
-    -fx-background-insets: 0, 1;
-    /*-fx-padding: 0;*/
+.nav-buttons:hover {
+    -fx-effect: innershadow( gaussian , #3DAEE9, 9, 1 ,1 ,1);
 }
 
-.list-view .list-cell:odd {
-    -fx-background-color: #41403D;
-    -fx-font-size: 15;
+.clear-button {
+    -fx-background-color: #AB231D;
+    -fx-text-fill: #ffffff;
 }
 
-.list-view .list-cell:even {
-    -fx-background-color: #3E3D3A;
-    -fx-font-size: 15;
+.clear-button:hover {
+    -fx-background-color: #F8251C;
 }
 
-.list-view .list-cell:selected:odd,
-.list-view .list-cell:selected:even {
-    -fx-background-color: -fx-background;
+.refresh {
+    -fx-effect: innershadow( gaussian , #00C702, 9, 1 ,1 ,1);
 }
 
-
-
-/*
-change the color of an image or icon
-
-.triangle {
-   -fx-effect: innershadow( gaussian , #1E2D44 , 7 , 1 , 1 , 1 );
+.delete {
+    -fx-effect: innershadow( gaussian , #AB231D, 9, 1 ,1 ,1);
 }
 
-*/
+.delete:hover {
+    -fx-effect: innershadow( gaussian , #F8251C, 9, 1 ,1 ,1);
+}
+

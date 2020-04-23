@@ -25,11 +25,15 @@ public class GridCanvas extends Pane {
         canvas.heightProperty().bind(this.heightProperty());
     }
 
+    public void clear() {
+        Canvas canvas = this.canvas;
+        this.getChildren().clear();
+        getChildren().add(canvas);
+    }
+
     @Override
     protected void layoutChildren() {
-
         super.layoutChildren();
-
         gc.setStroke(Color.valueOf("#FEFEFE"));
         gc.setLineWidth(0.1);
 
