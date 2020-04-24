@@ -1,3 +1,4 @@
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
@@ -10,11 +11,9 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.*;
 
+import javax.naming.Binding;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
@@ -118,38 +117,7 @@ public class BuildController extends Controller {
                     this.x.setText(df.format(marker.getCenterX()));
                     this.y.setText(df.format(marker.getCenterY()));
 
-                    marker.setOnMouseClicked(event -> {
-                        if (event.getButton() == MouseButton.PRIMARY) {
-                            currentMarker.setStroke(Color.GREENYELLOW);
-                            currentMarker.setFill(Color.GREENYELLOW.deriveColor(1, 1, 1, 0.5));
-                            currentMarker = marker;
-                            marker.setFill(Color.BLUEVIOLET);
-                            this.x.setText(df.format(marker.getCenterX()));
-                            this.y.setText(df.format(marker.getCenterY()));
-
-                            if (isLineEnabled) {
-                                if (currentLine == null) {
-                                    Line newLine = new Line(marker.getCenterX(), marker.getCenterY(), marker.getCenterX(), marker.getCenterY());
-                                    newLine.setStroke(Color.AQUA);
-                                    currentLine = newLine;
-                                    gridCanvas.getChildren().add(currentLine);
-                                }
-                                else {
-                                    currentLine.setEndX(marker.getCenterX());
-                                    currentLine.setEndY(marker.getCenterY());
-                                    this.x.setText(df.format(marker.getCenterX()));
-                                    this.y.setText(df.format(marker.getCenterY()));
-                                }
-                            }
-                        }
-                        else if (event.getButton() == MouseButton.SECONDARY) {
-                            if (event.getClickCount() == 2) {
-                                gridCanvas.getChildren().remove(marker);
-                                this.x.clear(); this.y.clear();
-                            }
-                        }
-                        event.consume();
-                    });
+                    addMarkerEventHandler(marker);
                 }
                 e.consume();
             }
@@ -163,32 +131,40 @@ public class BuildController extends Controller {
         });
     }
 
-//    public void addLineEvenHandler(Circle node) {
-//        System.out.println(isLineEnabled);
-//        node.setOnMouseClicked(event -> {
-//            System.out.println(isLineEnabled);
-//            if (event.getButton() == MouseButton.PRIMARY && isLineEnabled) {
-//                this.x.setText(df.format(node.getCenterX()));
-//                this.y.setText(df.format(node.getCenterY()));
-//                if (currentLine == null) {
-//                    currentLine = new Line(event.getX(), event.getY(), event.getX(), event.getY());
-//                    gridCanvas.getChildren().add(currentLine);
-//                } else {
-//                    currentLine = null;
-//                    isLineEnabled = false;
-//                }
-//            }
-//            else if (event.getButton() == MouseButton.SECONDARY) {
-//                if (event.getClickCount() == 1) {
-//
-//                } else if (event.getClickCount() == 2) {
-//                    gridCanvas.getChildren().remove(node);
-//                    this.x.clear();
-//                    this.y.clear();
-//                }
-//            }
-//        });
-//    }
+    public void addMarkerEventHandler(Circle marker) {
+        marker.setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.PRIMARY) {
+                currentMarker.setStroke(Color.GREENYELLOW);
+                currentMarker.setFill(Color.GREENYELLOW.deriveColor(1, 1, 1, 0.5));
+                currentMarker = marker;
+                marker.setFill(Color.BLUEVIOLET);
+                this.x.setText(df.format(marker.getCenterX()));
+                this.y.setText(df.format(marker.getCenterY()));
+
+                if (isLineEnabled) {
+                    if (currentLine == null) {
+                        Line newLine = new Line(marker.getCenterX(), marker.getCenterY(), marker.getCenterX(), marker.getCenterY());
+                        newLine.setStroke(Color.AQUA);
+                        currentLine = newLine;
+                        gridCanvas.getChildren().add(currentLine);
+                    }
+                    else {
+                        currentLine.setEndX(marker.getCenterX());
+                        currentLine.setEndY(marker.getCenterY());
+                        this.x.setText(df.format(marker.getCenterX()));
+                        this.y.setText(df.format(marker.getCenterY()));
+                    }
+                }
+            }
+            else if (event.getButton() == MouseButton.SECONDARY) {
+                if (event.getClickCount() == 2) {
+                    gridCanvas.getChildren().remove(marker);
+                    this.x.clear(); this.y.clear();
+                }
+            }
+            event.consume();
+        });
+    }
 
     public void onClick(ActionEvent event) {
         if (event.getSource() == circle) drawCircle();
@@ -264,41 +240,47 @@ public class BuildController extends Controller {
         Polygon top = new Polygon();
         top.getPoints().addAll(160.0, 160.0, 400.0, 200.0, 440.0, 160.0, 200.0, 120.0);
         top.setStroke(Color.AQUA);
-        top.setFill(Color.GREY.deriveColor(1, 1, 1, 0.5));
+        setFillProperty(top);
 
         Polygon base = new Polygon();
         base.getPoints().addAll(160.0, 160.0, 160.0, 200.0, 400.0, 220.0, 400.0, 200.0);
         base.setStroke(Color.AQUA);
-        base.setFill(Color.GREY.deriveColor(1, 1, 1, 0.5));
+        setFillProperty(base);
 
         Polygon connector_top = new Polygon();
         connector_top.getPoints().addAll(400.0, 200.0, 480.0, 200.0, 520.0, 160.0, 440.0, 160.0);
         connector_top.setStroke(Color.AQUA);
-        connector_top.setFill(Color.GREY.deriveColor(1, 1, 1, 0.5));
+        setFillProperty(connector_top);
 
         Polygon connector_left = new Polygon();
         connector_left.getPoints().addAll(400.0, 200.0, 400.0, 220.0, 480.0, 220.0, 480.0, 200.0);
         connector_left.setStroke(Color.AQUA);
-        connector_left.setFill(Color.GREY.deriveColor(1, 1, 1, 0.5));
+        setFillProperty(connector_left);
 
         Polygon connector_right = new Polygon();
         connector_right.getPoints().addAll(480.0, 200.0, 480.0, 220.0, 520.0, 180.0, 520.0, 160.0);
         connector_right.setStroke(Color.AQUA);
-        connector_right.setFill(Color.GREY.deriveColor(1, 1, 1, 0.5));
+        setFillProperty(connector_right);
 
         Polygon bottom_ramp_side = new Polygon();
         bottom_ramp_side.getPoints().addAll(520.0, 160.0, 520.0, 180.0, 680.0, 80.0);
         bottom_ramp_side.setStroke(Color.AQUA);
-        bottom_ramp_side.setFill(Color.GREY.deriveColor(1, 1, 1, 0.5));
+        setFillProperty(bottom_ramp_side);
 
         Polygon bottom_ramp_top = new Polygon();
         bottom_ramp_top.getPoints().addAll(440.0, 160.0, 520.0, 160.0, 680.0, 80.0, 600.0, 80.0);
         bottom_ramp_top.setStroke(Color.AQUA);
-        bottom_ramp_top.setFill(Color.GREY.deriveColor(1, 1, 1, 0.5));
+        setFillProperty(bottom_ramp_top);
 
         group.getChildren().addAll(top, base, connector_top, connector_left, connector_right, bottom_ramp_side, bottom_ramp_top);
         addObjectEventHandler(group);
         gridCanvas.getChildren().add(group);
+    }
+
+    public void setFillProperty(Shape shape) {
+        shape.fillProperty().bind(Bindings.when(shape.hoverProperty())
+                .then(Color.GOLD)
+                .otherwise(Color.GRAY.deriveColor(1, 1, 1, 0.5)));
     }
 
     public void drawPoint() {
@@ -343,7 +325,7 @@ public class BuildController extends Controller {
 
         });
 
-        node.setOnMouseClicked(event -> {
+        node.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
             this.currentNode = node;
             if (event.getButton() == MouseButton.SECONDARY && event.getClickCount() == 2)
                 gridCanvas.getChildren().remove(node);
