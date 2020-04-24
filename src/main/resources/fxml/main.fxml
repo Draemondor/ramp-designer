@@ -69,7 +69,7 @@
                                         </ImageView>
                                     </children>
                                 </Pane>
-                                <Pane fx:id="messagePane" layoutY="150.0" onMouseClicked="#handle" prefHeight="75.0" prefWidth="75.0" stylesheets="@../css/main.css">
+                                <Pane fx:id="messagePane" layoutY="150.0" onMouseClicked="#handle" prefHeight="75.0" prefWidth="75.0" stylesheets="@../css/main.css" visible="false">
                                     <children>
                                         <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="23.0" layoutY="23.0" onMouseClicked="#handle" pickOnBounds="true" preserveRatio="true">
                                             <image>
@@ -78,7 +78,7 @@
                                         </ImageView>
                                     </children>
                                 </Pane>
-                                <Pane fx:id="marketPane" layoutY="225.0" onMouseClicked="#handle" prefHeight="75.0" prefWidth="75.0" stylesheets="@../css/main.css">
+                                <Pane fx:id="marketPane" layoutY="225.0" onMouseClicked="#handle" prefHeight="75.0" prefWidth="75.0" stylesheets="@../css/main.css" visible="false">
                                     <children>
                                         <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="23.0" layoutY="22.0" onMouseClicked="#handle" pickOnBounds="true" preserveRatio="true">
                                             <image>

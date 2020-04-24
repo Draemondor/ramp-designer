@@ -51,6 +51,7 @@ public class BuildController extends Controller {
     /***  Positioning variables used to move items around the screen relative to the mouse position and current Node translation.
      Used with the EventHandlers.
      ***/
+
     double relativeMouseX;
     double relativeMouseY;
     double relativeTranslateX;
@@ -94,6 +95,10 @@ public class BuildController extends Controller {
         });
 
         subScene.setOnMouseClicked(e -> {
+            if (currentMarker != null) {
+                currentMarker.setStroke(Color.valueOf("#FF8C00"));
+                currentMarker.setFill(Color.valueOf("#FF8C00").deriveColor(1, 1, 1, 0.5));
+            }
             this.x.clear(); this.y.clear();
             if (e.getButton() == MouseButton.PRIMARY) {
                 if (e.getClickCount() == 1) {
@@ -103,15 +108,17 @@ public class BuildController extends Controller {
                     Point2D center = gridCanvas.sceneToLocal(new Point2D(e.getX(), e.getY()));
                     Circle marker = new Circle(center.getX(), center.getY(), 5);
                     marker.setStroke(Color.GREENYELLOW);
-                    marker.setFill(Color.GREENYELLOW.deriveColor(1, 1, 1, 0.5));
+                    marker.setFill(Color.GREENYELLOW);
                     currentMarker = marker;
                     gridCanvas.getChildren().add(marker);
+                    currentNode = currentMarker;
 
                     if (isLineEnabled) {
                         Line newLine = new Line(marker.getCenterX(), marker.getCenterY(), marker.getCenterX(), marker.getCenterY());
                         newLine.setStroke(Color.AQUA);
                         currentLine = newLine;
                         gridCanvas.getChildren().add(currentLine);
+                        currentNode = currentMarker;
                     }
 
                     this.x.setText(df.format(marker.getCenterX()));
@@ -122,38 +129,29 @@ public class BuildController extends Controller {
                 e.consume();
             }
             else if (e.getButton() == MouseButton.SECONDARY) {
-                if (isLineEnabled) {
+                if (isLineEnabled)
                     gridCanvas.getChildren().remove(currentLine);
-                    currentLine = null;
-                    this.x.clear(); this.y.clear();
-                }
             }
         });
     }
 
     public void addMarkerEventHandler(Circle marker) {
         marker.setOnMouseClicked(event -> {
+                currentNode = marker;
             if (event.getButton() == MouseButton.PRIMARY) {
-                currentMarker.setStroke(Color.GREENYELLOW);
-                currentMarker.setFill(Color.GREENYELLOW.deriveColor(1, 1, 1, 0.5));
+                currentMarker.setStroke(Color.valueOf("#FF8C00"));
+                currentMarker.setFill(Color.valueOf("#FF8C00").deriveColor(1, 1, 1, 0.5));
                 currentMarker = marker;
-                marker.setFill(Color.BLUEVIOLET);
+                currentMarker.setStroke(Color.GREENYELLOW);
+                currentMarker.setFill(Color.GREENYELLOW);
                 this.x.setText(df.format(marker.getCenterX()));
                 this.y.setText(df.format(marker.getCenterY()));
 
                 if (isLineEnabled) {
-                    if (currentLine == null) {
-                        Line newLine = new Line(marker.getCenterX(), marker.getCenterY(), marker.getCenterX(), marker.getCenterY());
-                        newLine.setStroke(Color.AQUA);
-                        currentLine = newLine;
-                        gridCanvas.getChildren().add(currentLine);
-                    }
-                    else {
-                        currentLine.setEndX(marker.getCenterX());
-                        currentLine.setEndY(marker.getCenterY());
-                        this.x.setText(df.format(marker.getCenterX()));
-                        this.y.setText(df.format(marker.getCenterY()));
-                    }
+                    Line newLine = new Line(marker.getCenterX(), marker.getCenterY(), marker.getCenterX(), marker.getCenterY());
+                    newLine.setStroke(Color.AQUA);
+                    currentLine = newLine;
+                    gridCanvas.getChildren().add(currentLine);
                 }
             }
             else if (event.getButton() == MouseButton.SECONDARY) {
@@ -203,8 +201,8 @@ public class BuildController extends Controller {
     public void drawCircle() {
         Circle circle = new Circle( 80, 80, 40);
         currentNode = circle;
-        circle.setStroke(Color.GOLD);
-        circle.setFill(Color.GOLD.deriveColor(1, 1, 1, 0.5));
+        circle.setStroke(Color.AQUA);
+        circle.setFill(Color.GRAY.deriveColor(1, 1, 1, 0.5));
         addObjectEventHandler(circle);
         gridCanvas.getChildren().addAll(circle);
     }
@@ -215,7 +213,7 @@ public class BuildController extends Controller {
         rectangle.setTranslateX(80);
         rectangle.setTranslateY(80);
         rectangle.setStroke(Color.AQUA);
-        rectangle.setFill(Color.AQUA.deriveColor(1, 1, 1, 0.5));
+        rectangle.setFill(Color.GRAY.deriveColor(1, 1, 1, 0.5));
         addObjectEventHandler(rectangle);
         gridCanvas.getChildren().addAll(rectangle);
     }
@@ -223,12 +221,9 @@ public class BuildController extends Controller {
     public void drawTriangle() {
         Polygon triangle = new Polygon();
         currentNode = triangle;
-        triangle.getPoints().addAll(
-                160.0, 40.0,
-                120.0, 120.0,
-                200.0, 120.0);
-        triangle.setStroke(Color.GREEN);
-        triangle.setFill(Color.GREEN.deriveColor(1, 1, 1, 0.5));
+        triangle.getPoints().addAll(160.0, 40.0, 120.0, 120.0, 200.0, 120.0);
+        triangle.setStroke(Color.AQUA);
+        triangle.setFill(Color.GRAY.deriveColor(1, 1, 1, 0.5));
         addObjectEventHandler(triangle);
         gridCanvas.getChildren().add(triangle);
     }
@@ -279,7 +274,7 @@ public class BuildController extends Controller {
 
     public void setFillProperty(Shape shape) {
         shape.fillProperty().bind(Bindings.when(shape.hoverProperty())
-                .then(Color.GOLD)
+                .then(Color.GOLD.deriveColor(1, 1, 1, 0.5))
                 .otherwise(Color.GRAY.deriveColor(1, 1, 1, 0.5)));
     }
 
