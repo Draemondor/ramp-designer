@@ -1,0 +1,23 @@
+﻿  Main.cpp
+C:\Users\rydob\source\repos\Snek2\Snek\shader.h(8,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\rydob\source\repos\Snek2\Snek\shader.h(9,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\rydob\source\repos\Snek2\Snek\shader.h(136,55): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
+C:\Users\rydob\source\repos\Snek2\Snek\Main.cpp(105,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\rydob\source\repos\Snek2\Snek\Main.cpp(147,28): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\rydob\source\repos\Snek2\Snek\Main.cpp(148,28): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\rydob\source\repos\Snek2\Snek\Main.cpp(220,12): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\rydob\source\repos\Snek2\Snek\Main.cpp(221,12): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\rydob\source\repos\Snek2\Snek\Main.cpp(224,17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\rydob\source\repos\Snek2\Snek\Main.cpp(225,17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\rydob\source\repos\Snek2\Snek\Main.cpp(226,11): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\rydob\source\repos\Snek2\Snek\Main.cpp(227,11): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\rydob\source\repos\Snek2\Snek\Main.cpp(234,17): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Snek.vcxproj -> C:\Users\rydob\source\repos\Snek2\Debug\Snek.exe
